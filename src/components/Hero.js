@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import profileLocal from '../assets/profile/mehul.avif';
 
 const HeroSection = styled.section`
   min-height: 100vh;
@@ -177,6 +178,10 @@ const Hero = () => {
     }
   };
 
+  // resolve profile image from assets with fallback (static import to avoid runtime warnings)
+  const fallbackProfile = "https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=600&q=60";
+  const profileSrc = profileLocal || fallbackProfile;
+
   return (
     <HeroSection id="hero" ref={ref}>
       <FloatingElements>
@@ -258,8 +263,8 @@ const Hero = () => {
             transition={{ duration: 0.3 }}
           >
             <ProfileImage
-              src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=600&q=60"
-              alt="Profile placeholder"
+              src={profileSrc}
+              alt="Profile"
               loading="lazy"
             />
           </HeroImage>
