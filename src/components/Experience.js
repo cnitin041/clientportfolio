@@ -85,6 +85,7 @@ const FlowItem = styled(motion.div)`
   @media (max-width: 480px) {
     gap: 0.75rem;
     margin-bottom: 1.25rem;
+    margin-left: -50px;
   }
 `;
 
