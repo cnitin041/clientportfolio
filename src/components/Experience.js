@@ -65,7 +65,8 @@ const VerticalLine = styled.div`
   }
   
   @media (max-width: 480px) {
-    left: 30px;
+    left: 28px;
+    width: 2px;
   }
 `;
 
@@ -80,6 +81,11 @@ const FlowItem = styled(motion.div)`
     gap: 1rem;
     margin-bottom: 1.75rem;
   }
+
+  @media (max-width: 480px) {
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
 `;
 
 const NodeCol = styled.div`
@@ -88,6 +94,10 @@ const NodeCol = styled.div`
   
   @media (max-width: 768px) {
     width: 72px;
+  }
+
+  @media (max-width: 480px) {
+    width: 56px;
   }
 `;
 
@@ -117,6 +127,13 @@ const NodeBadge = styled.div`
     font-size: 1.1rem;
     margin-left: 8px;
   }
+
+  @media (max-width: 480px) {
+    width: 42px;
+    height: 42px;
+    font-size: 0.95rem;
+    margin-left: 6px;
+  }
 `;
 
 const ConnectorV = styled.div`
@@ -130,6 +147,11 @@ const ConnectorV = styled.div`
   @media (max-width: 768px) {
     left: 36px;
     top: 52px;
+  }
+
+  @media (max-width: 480px) {
+    left: 28px;
+    top: 44px;
   }
 `;
 
@@ -152,6 +174,10 @@ const NodeCard = styled(motion.div)`
   @media (max-width: 900px) {
     min-width: 0;
     width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.875rem 1rem;
   }
 `;
 
@@ -225,16 +251,24 @@ const TimelineIcon = styled(motion.div)`
 
 const JobTitle = styled.h3`
   color: #111;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
+
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+  }
 `;
 
 const Company = styled.h4`
   color: #333;
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   font-weight: 500;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
+
+  @media (max-width: 480px) {
+    font-size: 0.95rem;
+  }
 `;
 
 const JobMeta = styled.div`
@@ -254,6 +288,10 @@ const MetaItem = styled.div`
   gap: 0.5rem;
   color: #666;
   font-size: 0.9rem;
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+  }
 `;
 
 const JobDescription = styled.ul`
@@ -261,9 +299,10 @@ const JobDescription = styled.ul`
   line-height: 1.6;
   list-style: none;
   padding: 0;
+  font-size: 0.95rem;
 
   li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
     position: relative;
     padding-left: 1.5rem;
 
@@ -271,9 +310,14 @@ const JobDescription = styled.ul`
       content: '▶';
       position: absolute;
       left: 0;
-      color:rgb(61, 61, 61);
+      color: rgb(61, 61, 61);
       font-size: 0.8rem;
     }
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    li { margin-bottom: 0.35rem; }
   }
 `;
 
