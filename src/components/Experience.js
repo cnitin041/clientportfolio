@@ -26,14 +26,11 @@ const Container = styled.div`
 `;
 
 const SectionTitle = styled(motion.h2)`
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 4rem;
-  background: linear-gradient(135deg, #ffd700, #ffed4e);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin-bottom: 2.5rem;
+  color: #111;
 
   @media (max-width: 768px) {
     font-size: 2rem;
@@ -45,6 +42,14 @@ const SectionTitle = styled(motion.h2)`
 const VerticalTimeline = styled.div`
   position: relative;
   padding-left: 110px;
+  
+  @media (max-width: 768px) {
+    padding-left: 72px;
+  }
+  
+  @media (max-width: 480px) {
+    padding-left: 60px;
+  }
 `;
 
 const VerticalLine = styled.div`
@@ -53,7 +58,15 @@ const VerticalLine = styled.div`
   top: 0;
   bottom: 0;
   width: 3px;
-  background: linear-gradient(180deg, #ffd700, #ffed4e);
+  background: #e0e0e0;
+  
+  @media (max-width: 768px) {
+    left: 36px;
+  }
+  
+  @media (max-width: 480px) {
+    left: 30px;
+  }
 `;
 
 const FlowItem = styled(motion.div)`
@@ -61,19 +74,29 @@ const FlowItem = styled(motion.div)`
   display: flex;
   gap: 1.5rem;
   margin-bottom: 2.5rem;
+  align-items: flex-start;
+  
+  @media (max-width: 768px) {
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
 `;
 
 const NodeCol = styled.div`
   width: 110px;
   position: relative;
+  
+  @media (max-width: 768px) {
+    width: 72px;
+  }
 `;
 
 const NodeBadge = styled.div`
-  width: 70px;
-  height: 70px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #ffd700, #ffb703);
-  box-shadow: 0 12px 26px rgba(255, 215, 0, 0.3);
+  background: #e9e9e9;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,34 +107,51 @@ const NodeBadge = styled.div`
 
   &:hover {
     transform: scale(1.06);
-    box-shadow: 0 18px 36px rgba(255, 215, 0, 0.4);
-    filter: saturate(1.08);
+    box-shadow: 0 16px 30px rgba(0,0,0,0.12);
+    filter: none;
+  }
+  
+  @media (max-width: 768px) {
+    width: 52px;
+    height: 52px;
+    font-size: 1.1rem;
+    margin-left: 8px;
   }
 `;
 
 const ConnectorV = styled.div`
   position: absolute;
   left: 55px;
-  top: 70px;
+  top: 64px;
   bottom: -20px;
   width: 3px;
-  background: linear-gradient(180deg, rgba(255,215,0,0.8), rgba(255,215,0,0));
+  background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0));
+  
+  @media (max-width: 768px) {
+    left: 36px;
+    top: 52px;
+  }
 `;
 
 const NodeCard = styled(motion.div)`
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
   padding: 1rem 1.25rem;
-  min-width: 220px;
-  backdrop-filter: blur(10px);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  min-width: 260px;
+  background: #ffffff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 
   &:hover {
-    transform: scale(1.03);
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.28);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    transform: translateY(-2px);
+    background: #ffffff;
+    border-color: rgba(0,0,0,0.12);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.12);
+  }
+  
+  @media (max-width: 900px) {
+    min-width: 0;
+    width: 100%;
   }
 `;
 
@@ -184,14 +224,14 @@ const TimelineIcon = styled(motion.div)`
 `;
 
 const JobTitle = styled.h3`
-  color: #ffd700;
+  color: #111;
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 `;
 
 const Company = styled.h4`
-  color: white;
+  color: #333;
   font-size: 1.2rem;
   font-weight: 500;
   margin-bottom: 1rem;
@@ -212,12 +252,12 @@ const MetaItem = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: #666;
   font-size: 0.9rem;
 `;
 
 const JobDescription = styled.ul`
-  color: rgba(255, 255, 255, 0.8);
+  color: #555;
   line-height: 1.6;
   list-style: none;
   padding: 0;
@@ -231,7 +271,7 @@ const JobDescription = styled.ul`
       content: '▶';
       position: absolute;
       left: 0;
-      color: #ffd700;
+      color:rgb(61, 61, 61);
       font-size: 0.8rem;
     }
   }

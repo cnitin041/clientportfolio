@@ -29,17 +29,14 @@ const HeroContainer = styled.div`
 `;
 
 const HeroContent = styled(motion.div)`
-  color: white;
+  color: #222;
 `;
 
 const HeroTitle = styled(motion.h1)`
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #ffd700, #ffed4e);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #111;
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
@@ -48,9 +45,9 @@ const HeroTitle = styled(motion.h1)`
 
 const HeroSubtitle = styled(motion.h2)`
   font-size: 1.5rem;
-  font-weight: 400;
+  font-weight: 500;
   margin-bottom: 1.5rem;
-  opacity: 0.9;
+  color: #444;
 
   @media (max-width: 768px) {
     font-size: 1.2rem;
@@ -59,10 +56,10 @@ const HeroSubtitle = styled(motion.h2)`
 
 const HeroDescription = styled(motion.p)`
   font-size: 1.1rem;
-  line-height: 1.6;
+  line-height: 1.7;
   margin-bottom: 2rem;
-  opacity: 0.8;
-  max-width: 500px;
+  color: #555;
+  max-width: 560px;
 
   @media (max-width: 768px) {
     font-size: 1rem;
@@ -70,19 +67,20 @@ const HeroDescription = styled(motion.p)`
 `;
 
 const CTAButton = styled(motion.button)`
-  background: linear-gradient(135deg, #ffd700, #ffed4e);
-  color: #333;
+  background: #111;
+  color: #fff;
   border: none;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
+  padding: 0.9rem 1.6rem;
+  font-size: 1rem;
   font-weight: 600;
-  border-radius: 50px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+    background: #000;
   }
 `;
 
@@ -94,10 +92,10 @@ const HeroImageContainer = styled(motion.div)`
 `;
 
 const HeroImage = styled(motion.div)`
-  width: 350px;
-  height: 350px;
+  width: 340px;
+  height: 340px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  background: #eaeaea;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,9 +105,9 @@ const HeroImage = styled(motion.div)`
   &::before {
     content: '';
     position: absolute;
-    inset: 4px;
+    inset: 6px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #ffffff;
   }
 
   @media (max-width: 768px) {
@@ -128,10 +126,7 @@ const ProfileImage = styled.img`
 `;
 
 const FloatingElements = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+  display: none;
 `;
 
 const FloatingElement = styled(motion.div)`

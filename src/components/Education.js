@@ -6,8 +6,6 @@ import { FaCalendarAlt, FaMapMarkerAlt, FaAward } from 'react-icons/fa';
 
 const EducationSection = styled.section`
   padding: 6rem 2rem;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
 `;
 
 const Container = styled.div`
@@ -16,14 +14,11 @@ const Container = styled.div`
 `;
 
 const SectionTitle = styled(motion.h2)`
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 4rem;
-  background: linear-gradient(135deg, #ffd700, #ffed4e);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin-bottom: 2.5rem;
+  color: #111;
 
   @media (max-width: 768px) {
     font-size: 2rem;
@@ -43,29 +38,17 @@ const EducationGrid = styled(motion.div)`
 `;
 
 const EducationCard = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(15px);
-  border-radius: 25px;
-  padding: 2.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(135deg, #ffd700, #ffed4e);
-  }
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+    border-color: rgba(0,0,0,0.12);
   }
 `;
 
@@ -77,11 +60,11 @@ const CardHeader = styled.div`
 `;
 
 const IconContainer = styled(motion.div)`
-  width: 60px;
-  height: 60px;
-  border-radius: 15px;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
 `;
 
 const IconImage = styled.img`
@@ -95,16 +78,16 @@ const CardContent = styled.div`
 `;
 
 const Degree = styled.h3`
-  color: white;
-  font-size: 1.4rem;
+  color: #111;
+  font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   line-height: 1.3;
 `;
 
 const Institution = styled.h4`
-  color: #ffd700;
-  font-size: 1.1rem;
+  color: #333;
+  font-size: 1rem;
   font-weight: 500;
   margin-bottom: 1rem;
 `;
@@ -124,13 +107,13 @@ const MetaItem = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: #666;
   font-size: 0.9rem;
 `;
 
 const Description = styled.p`
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.6;
+  color: #555;
+  line-height: 1.7;
   margin-bottom: 1rem;
 `;
 
@@ -139,7 +122,7 @@ const Achievements = styled.div`
 `;
 
 const AchievementTitle = styled.h5`
-  color: #ffd700;
+  color: #111;
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -153,31 +136,24 @@ const AchievementList = styled.ul`
   padding: 0;
 
   li {
-    color: rgba(255, 255, 255, 0.8);
+    color: #555;
     margin-bottom: 0.3rem;
     position: relative;
     padding-left: 1.5rem;
     font-size: 0.9rem;
 
     &::before {
-      content: '★';
+      content: '•';
       position: absolute;
       left: 0;
-      color: #ffd700;
+      color: #aaa;
       font-size: 0.8rem;
     }
   }
 `;
 
 const FloatingShape = styled(motion.div)`
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 237, 78, 0.1));
-  border-radius: 50%;
-  top: -50px;
-  right: -50px;
-  pointer-events: none;
+  display: none;
 `;
 
 const educationData = [

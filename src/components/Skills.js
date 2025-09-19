@@ -30,14 +30,11 @@ const Container = styled.div`
 `;
 
 const SectionTitle = styled(motion.h2)`
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 3rem;
-  background: linear-gradient(135deg, #ffd700, #ffed4e);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin-bottom: 2rem;
+  color: #111;
 
   @media (max-width: 768px) {
     font-size: 2rem;
@@ -47,26 +44,25 @@ const SectionTitle = styled(motion.h2)`
 /* Removed carousel viewport/track/slide in favor of TilesGrid */
 
 const SkillCard = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  border-radius: 18px;
-  padding: 1.5rem 1.25rem;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.25rem 1rem;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 210px;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.15);
+  min-height: 180px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
   transform: none;
   opacity: 1;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.12);
-    transform: scale(1.03);
-    box-shadow: 0 22px 44px rgba(0, 0, 0, 0.25);
-    border-color: rgba(255, 255, 255, 0.28);
+    background: #ffffff;
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.10);
+    border-color: rgba(0, 0, 0, 0.10);
   }
 
   &:focus-within {
@@ -85,33 +81,41 @@ const SkillImage = styled.img`
   width: 72px;
   height: 72px;
   object-fit: contain;
-  filter: drop-shadow(0 8px 14px rgba(0,0,0,0.25));
-  transition: transform 0.25s ease;
+  /* Monochrome with a subtle warm tint */
+  filter: grayscale(100%) sepia(10%) saturate(60%) brightness(0.98) contrast(1.05) drop-shadow(0 4px 8px rgba(0,0,0,0.06));
+  opacity: 0.9;
+  transition: transform 0.25s ease, filter 0.25s ease, opacity 0.25s ease;
+
+  &:hover {
+    filter: grayscale(0%) sepia(0%) saturate(110%) brightness(1) contrast(1);
+    opacity: 1;
+  }
 `;
 
 const SkillName = styled.h3`
-  color: white;
-  font-size: 1.1rem;
+  color: #222;
+  font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 `;
 
 const SkillLevel = styled.div`
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.9rem;
+  color: #666;
 `;
 
 const TechLogosSection = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.07);
-  border-radius: 30px;
-  padding: 2rem 2rem;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
   text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 `;
 
 const TechTitle = styled.h3`
-  color: white;
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
+  color: #111;
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
   font-weight: 600;
 `;
 
@@ -140,12 +144,15 @@ const TechLogo = styled(motion.img)`
   width: 64px;
   height: 64px;
   object-fit: contain;
-  opacity: 0.9;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0.85;
+  /* Monochrome by default for marquee logos */
+  filter: grayscale(100%) sepia(8%) saturate(50%) brightness(0.98) contrast(1.05);
+  transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
 
   &:hover {
     opacity: 1;
-    transform: scale(1.1);
+    transform: scale(1.05);
+    filter: grayscale(0%) sepia(0%) saturate(110%) brightness(1) contrast(1);
   }
 `;
 

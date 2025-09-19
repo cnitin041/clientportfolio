@@ -12,7 +12,6 @@ import {
 
 const ContactSection = styled.section`
   padding: 6rem 2rem 4rem;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
 `;
 
 const Container = styled.div`
@@ -21,14 +20,11 @@ const Container = styled.div`
 `;
 
 const SectionTitle = styled(motion.h2)`
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 2rem;
-  background: linear-gradient(135deg, #ffd700, #ffed4e);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin-bottom: 1rem;
+  color: #111;
 
   @media (max-width: 768px) {
     font-size: 2rem;
@@ -37,9 +33,9 @@ const SectionTitle = styled(motion.h2)`
 
 const SectionSubtitle = styled(motion.p)`
   text-align: center;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1.2rem;
-  margin-bottom: 4rem;
+  color: #555;
+  font-size: 1.05rem;
+  margin-bottom: 3rem;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
@@ -63,24 +59,24 @@ const ContactGrid = styled(motion.div)`
 `;
 
 const ContactInfo = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(15px);
-  border-radius: 25px;
-  padding: 3rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.06);
 `;
 
 const ContactForm = styled(motion.form)`
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(15px);
-  border-radius: 25px;
-  padding: 3rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.06);
 `;
 
 const InfoTitle = styled.h3`
-  color: white;
-  font-size: 1.8rem;
+  color: #111;
+  font-size: 1.4rem;
   font-weight: 600;
   margin-bottom: 2rem;
 `;
@@ -95,8 +91,8 @@ const InfoItem = styled(motion.div)`
   transition: all 0.3s ease;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateX(10px);
+    background: rgba(0, 0, 0, 0.03);
+    transform: translateX(6px);
   }
 `;
 
@@ -110,7 +106,7 @@ const ImageIcon = styled.img`
 `;
 
 const InfoContent = styled.div`
-  color: white;
+  color: #333;
 
   h4 {
     font-weight: 600;
@@ -118,8 +114,8 @@ const InfoContent = styled.div`
   }
 
   p {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.9rem;
+    color: #555;
+    font-size: 0.95rem;
   }
 `;
 
@@ -129,75 +125,74 @@ const FormGroup = styled.div`
 
 const Label = styled.label`
   display: block;
-  color: white;
+  color: #333;
   font-weight: 500;
   margin-bottom: 0.5rem;
 `;
 
 const Input = styled.input`
   width: 100%;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  color: white;
+  padding: 0.9rem 1rem;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 10px;
+  color: #222;
   font-size: 1rem;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 
   &:focus {
     outline: none;
-    border-color: #ffd700;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+    border-color: #222;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
   }
 
   &::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: #999;
   }
 `;
 
 const TextArea = styled.textarea`
   width: 100%;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  color: white;
+  padding: 0.9rem 1rem;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 10px;
+  color: #222;
   font-size: 1rem;
   min-height: 120px;
   resize: vertical;
   font-family: inherit;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 
   &:focus {
     outline: none;
-    border-color: #ffd700;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+    border-color: #222;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
   }
 
   &::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: #999;
   }
 `;
 
 const SubmitButton = styled(motion.button)`
-  background: linear-gradient(135deg, #ffd700, #ffed4e);
-  color: #333;
+  background: #111;
+  color: #fff;
   border: none;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
+  padding: 0.9rem 1.4rem;
+  font-size: 1rem;
   font-weight: 600;
-  border-radius: 50px;
+  border-radius: 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    background: #000;
   }
 
   &:disabled {
@@ -218,37 +213,47 @@ const SocialLinks = styled(motion.div)`
 `;
 
 const SocialLink = styled(motion.a)`
-  width: 60px;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 48px;
+  height: 48px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 1.5rem;
+  color: #333;
+  font-size: 1.2rem;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 
   &:hover {
-    background: linear-gradient(135deg, #ffd700, #ffed4e);
-    color: #333;
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(255, 215, 0, 0.3);
+    transform: translateY(-3px);
+    color: #000;
+    border-color: rgba(0,0,0,0.15);
+    box-shadow:
+      0 0 0 6px rgba(0,0,0,0.05), /* soft outer glow ring */
+      0 12px 24px rgba(0,0,0,0.15); /* drop shadow */
+  }
+
+  &:focus-visible {
+    outline: none;
+    transform: translateY(-2px);
+    border-color: rgba(0,0,0,0.2);
+    box-shadow:
+      0 0 0 8px rgba(0,0,0,0.06),
+      0 10px 22px rgba(0,0,0,0.14);
   }
 `;
 
 const Footer = styled.footer`
   text-align: center;
   padding: 2rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(0,0,0,0.06);
   margin-top: 3rem;
 `;
 
 const FooterText = styled.p`
-  color: rgba(255, 255, 255, 0.6);
+  color: #777;
   font-size: 0.9rem;
 `;
 
@@ -486,7 +491,7 @@ const Contact = () => {
 
         <Footer>
           <FooterText>
-            © 2024 Mehul Joshi. Made with ❤️ using React & Framer Motion
+            © 2024 Mehul Joshi.
           </FooterText>
         </Footer>
       </Container>

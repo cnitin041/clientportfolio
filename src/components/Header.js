@@ -9,11 +9,11 @@ const HeaderContainer = styled(motion.header)`
   right: 0;
   z-index: 1000;
   padding: 1rem 2rem;
-  background: ${props => props.scrolled ? 'rgba(12, 14, 22, 0.7)' : 'transparent'};
-  backdrop-filter: blur(14px);
+  background: ${props => props.scrolled ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.7)'};
+  backdrop-filter: saturate(120%) blur(10px);
   transition: all 0.3s ease;
-  border-bottom: ${props => props.scrolled ? '1px solid rgba(255, 255, 255, 0.08)' : 'none'};
-  box-shadow: ${props => props.scrolled ? '0 10px 30px rgba(0,0,0,0.25)' : 'none'};
+  border-bottom: 1px solid ${props => props.scrolled ? 'rgba(0,0,0,0.08)' : 'rgba(0,0,0,0.05)'};
+  box-shadow: ${props => props.scrolled ? '0 8px 24px rgba(0,0,0,0.08)' : '0 2px 8px rgba(0,0,0,0.03)'};
 
   @media (max-width: 768px) {
     padding: 1rem;
@@ -31,7 +31,7 @@ const Nav = styled.nav`
 const Logo = styled(motion.div)`
   font-size: 1.5rem;
   font-weight: 700;
-  color: ${props => props.scrolled ? '#ffffff' : 'white'};
+  color: #222;
   cursor: pointer;
   letter-spacing: 0.5px;
 `;
@@ -46,8 +46,8 @@ const NavLinks = styled.div`
     top: 100%;
     left: 0;
     right: 0;
-    background: rgba(12, 14, 22, 0.95);
-    backdrop-filter: blur(14px);
+    background: #ffffff;
+    backdrop-filter: blur(6px);
     flex-direction: column;
     padding: 2rem;
     gap: 1rem;
@@ -55,20 +55,36 @@ const NavLinks = styled.div`
 `;
 
 const NavLink = styled(motion.a)`
-  color: ${props => props.scrolled ? '#e8e8ef' : 'white'};
+  position: relative;
+  color: #333;
   text-decoration: none;
   font-weight: 500;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 2px;
+    width: 0;
+    background: #111;
+    transition: width 0.2s ease;
+  }
 
   &:hover {
-    color: #ffd700;
+    color: #000;
+  }
+
+  &:hover:after {
+    width: 100%;
   }
 
   @media (max-width: 768px) {
-    color: #ffffff;
+    color: #333;
     &:hover {
-      color: #ffd700;
+      color: #000;
     }
   }
 `;
@@ -77,7 +93,7 @@ const MenuButton = styled.button`
   display: none;
   background: none;
   border: none;
-  color: white;
+  color: #333;
   font-size: 1.5rem;
   cursor: pointer;
 

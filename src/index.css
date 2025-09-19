@@ -1,3 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap');
+
+:root {
+  /* Typography scale */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-display: 'Sora', var(--font-sans);
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-md: 16px;
+  --text-lg: 18px;
+  --text-xl: 28px;
+  --text-2xl: 32px;
+  --text-3xl: 40px;
+
+  --color-bg: #f7f7f7;
+  --color-text: #222;
+  --color-muted: #666;
+  --color-border: rgba(0,0,0,0.08);
+}
 * {
   margin: 0;
   padding: 0;
@@ -5,18 +25,57 @@
 }
 
 body {
-  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #5f6cd9 0%, #6e3f99 100%);
+  background: var(--color-bg);
   min-height: 100vh;
   overflow-x: hidden;
-  color: #f7f7fb;
+  color: var(--color-text);
+  font-size: var(--text-md);
+  line-height: 1.6;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Sora', 'Manrope', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-family: var(--font-display);
+  color: #111;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: var(--text-3xl); margin-bottom: 0.6em; }
+h2 { font-size: var(--text-2xl); margin-bottom: 0.6em; }
+h3 { font-size: var(--text-xl); margin-bottom: 0.5em; }
+h4 { font-size: var(--text-lg); margin-bottom: 0.5em; }
+h5 { font-size: var(--text-md); margin-bottom: 0.4em; }
+h6 { font-size: var(--text-sm); margin-bottom: 0.3em; }
+
+p { color: var(--color-text); margin-bottom: 1em; }
+small { font-size: var(--text-sm); color: var(--color-muted); }
+
+a {
+  color: #111;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+a:hover { color: #000; border-bottom-color: rgba(0,0,0,0.2); }
+
+section { padding-top: 4rem; padding-bottom: 4rem; }
+
+@media (max-width: 768px) {
+  h1 { font-size: 32px; }
+  h2 { font-size: 28px; }
+  h3 { font-size: 24px; }
+  section { padding-top: 3rem; padding-bottom: 3rem; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 28px; }
+  h2 { font-size: 24px; }
+  h3 { font-size: 20px; }
+  section { padding-top: 2.5rem; padding-bottom: 2.5rem; }
 }
 
 html {
@@ -32,10 +91,10 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #cfcfcf;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  background: #bdbdbd;
 }
