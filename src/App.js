@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import Skills from './components/Skills';
-import Experience from './components/Experience';
-import Education from './components/Education';
-import Contact from './components/Contact';
+import Home from './pages/Home';
+import Resume from './pages/Resume';
+import Tools from './pages/Tools';
+import HoudiniTools from './pages/tools/HoudiniTools';
+import StandaloneTools from './pages/tools/StandaloneTools';
+import ContactPage from './pages/ContactPage';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -15,14 +17,19 @@ const AppContainer = styled.div`
 
 function App() {
   return (
-    <AppContainer>
-      <Header />
-      <Hero />
-      <Skills />
-      <Experience />
-      <Education />
-      <Contact />
-    </AppContainer>
+    <BrowserRouter>
+      <AppContainer>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/resume" element={<Resume />} />
+          <Route path="/tools" element={<Tools />} />
+          <Route path="/tools/houdini" element={<HoudiniTools />} />
+          <Route path="/tools/standalone" element={<StandaloneTools />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+      </AppContainer>
+    </BrowserRouter>
   );
 }
 

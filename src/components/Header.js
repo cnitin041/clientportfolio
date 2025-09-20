@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const HeaderContainer = styled(motion.header)`
   position: fixed;
@@ -54,7 +55,7 @@ const NavLinks = styled.div`
   }
 `;
 
-const NavLink = styled(motion.a)`
+const NavLink = styled(motion(Link))`
   position: relative;
   color: #333;
   text-decoration: none;
@@ -115,13 +116,7 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsOpen(false);
-  };
+  const closeMenu = () => setIsOpen(false);
 
   return (
     <HeaderContainer
@@ -134,45 +129,24 @@ const Header = () => {
         <Logo
           whileHover={{ scale: 1.05 }}
           scrolled={scrolled}
-          onClick={() => scrollToSection('hero')}
+          as={Link}
+          to="/"
+          onClick={closeMenu}
         >
           MEHUL JOSHI
         </Logo>
         
         <NavLinks $isOpen={isOpen}>
-          <NavLink
-            whileHover={{ scale: 1.05 }}
-            scrolled={scrolled}
-            onClick={() => scrollToSection('hero')}
-          >
+          <NavLink whileHover={{ scale: 1.05 }} scrolled={scrolled} to="/" onClick={closeMenu}>
             Home
           </NavLink>
-          <NavLink
-            whileHover={{ scale: 1.05 }}
-            scrolled={scrolled}
-            onClick={() => scrollToSection('skills')}
-          >
-            Skills
+          <NavLink whileHover={{ scale: 1.05 }} scrolled={scrolled} to="/resume" onClick={closeMenu}>
+            Resume
           </NavLink>
-          <NavLink
-            whileHover={{ scale: 1.05 }}
-            scrolled={scrolled}
-            onClick={() => scrollToSection('experience')}
-          >
-            Experience
+          <NavLink whileHover={{ scale: 1.05 }} scrolled={scrolled} to="/tools" onClick={closeMenu}>
+            Tools
           </NavLink>
-          <NavLink
-            whileHover={{ scale: 1.05 }}
-            scrolled={scrolled}
-            onClick={() => scrollToSection('education')}
-          >
-            Education
-          </NavLink>
-          <NavLink
-            whileHover={{ scale: 1.05 }}
-            scrolled={scrolled}
-            onClick={() => scrollToSection('contact')}
-          >
+          <NavLink whileHover={{ scale: 1.05 }} scrolled={scrolled} to="/contact" onClick={closeMenu}>
             Contact
           </NavLink>
         </NavLinks>

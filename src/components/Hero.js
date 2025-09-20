@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import profileLocal from '../assets/profile/mehul.avif';
 
@@ -126,7 +127,14 @@ const ProfileImage = styled.img`
 `;
 
 const FloatingElements = styled.div`
-  display: none;
+  display: block;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const FloatingElement = styled(motion.div)`
@@ -166,12 +174,11 @@ const Hero = () => {
     }
   };
 
-  const scrollToContact = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  // simple parallax: move decorative elements slightly on scroll
+  const { scrollY } = useScroll();
+  const ySlow = useTransform(scrollY, [0, 600], [0, -30]);
+  const yMid = useTransform(scrollY, [0, 600], [0, -60]);
+  const yFast = useTransform(scrollY, [0, 600], [0, -90]);
 
   // resolve profile image from assets with fallback (static import to avoid runtime warnings)
   const fallbackProfile = "https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=600&q=60";
@@ -182,11 +189,8 @@ const Hero = () => {
       <FloatingElements>
         <FloatingElement
           size={60}
-          style={{ top: '10%', left: '10%' }}
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 180, 360]
-          }}
+          style={{ top: '10%', left: '10%', y: ySlow }}
+          animate={{ rotate: [0, 180, 360] }}
           transition={{
             duration: 6,
             repeat: Infinity,
@@ -195,11 +199,8 @@ const Hero = () => {
         />
         <FloatingElement
           size={40}
-          style={{ top: '70%', right: '15%' }}
-          animate={{
-            y: [0, 20, 0],
-            x: [0, 10, 0]
-          }}
+          style={{ top: '70%', right: '15%', y: yMid }}
+          animate={{ x: [0, 10, 0] }}
           transition={{
             duration: 4,
             repeat: Infinity,
@@ -208,11 +209,8 @@ const Hero = () => {
         />
         <FloatingElement
           size={80}
-          style={{ top: '30%', right: '5%' }}
-          animate={{
-            y: [0, -30, 0],
-            rotate: [0, -180, -360]
-          }}
+          style={{ top: '30%', right: '5%', y: yFast }}
+          animate={{ rotate: [0, -180, -360] }}
           transition={{
             duration: 8,
             repeat: Infinity,
@@ -239,7 +237,8 @@ const Hero = () => {
           </HeroDescription>
           <motion.div variants={itemVariants}>
             <CTAButton
-              onClick={scrollToContact}
+              as={Link}
+              to="/contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
