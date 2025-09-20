@@ -4,17 +4,30 @@ import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion';
 import Hero from '../components/Hero';
 import TechMarquee from '../components/TechMarquee';
-import AttolsLogo from '../assets/logos/attols.svg';
-import HoudiniLogo from '../assets/logos/houdini.svg';
+// removed logo imports for icon row
 
 const ShortcutSection = styled(motion.section)`
-  padding: 4rem 2rem 5rem;
+  padding: 4rem 2rem 6.5rem; /* balanced space above footer */
+  position: relative;
 `;
 
 const ContentWrap = styled.div`
   position: relative;
-  z-index: 1;
+  z-index: 2; /* keep all content above the fade */
 `;
+
+const FooterFade = styled.div`
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 220px;
+  z-index: 1; /* above PageBg, below content */
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(245,245,245,0.10), #ffffff 80%);
+`;
+
+/* removed SectionBottomFade (unused) */
 
 const Container = styled.div`
   max-width: 1200px;
@@ -36,7 +49,7 @@ const PageBg = styled(motion.div)`
     radial-gradient(640px 640px at 78% 12%, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.11) 42%, rgba(0,0,0,0) 66%),
     radial-gradient(820px 820px at 88% 88%, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.11) 42%, rgba(0,0,0,0) 66%),
     linear-gradient(135deg, rgba(0,0,0,0.03), rgba(0,0,0,0.00)),
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><circle cx="2" cy="2" r="1.2" fill="%23777777" fill-opacity="0.45"/></svg>');
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><circle cx="2" cy="2" r="1.2" fill="%23777777" fill-opacity="0.16"/></svg>');
   background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   background-size: auto, auto, 100% 100%, 28px 28px;
   background-position: center 0px, center 320px, 0 0, 0px 0px;
@@ -107,39 +120,7 @@ const HighlightCard = styled(motion.div)`
   box-shadow: 0 6px 16px rgba(0,0,0,0.06);
 `;
 
-// Icon row
-const IconRowSection = styled.section`
-  padding: 1rem 2rem 2rem;
-`;
-
-const IconRowWrap = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  align-items: center;
-  gap: 16px;
-
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-`;
-
-const IconCard = styled.div`
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 12px;
-  height: 96px;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.05);
-`;
-
-const IconImg = styled.img`
-  width: 56px;
-  height: 56px;
-  object-fit: contain;
-`;
+// removed icon row styled components
 
 // Removed Gallery components; using card backgrounds instead.
 
@@ -205,6 +186,7 @@ const Home = () => {
     <div style={{ position: 'relative', minHeight: '100vh' }}>
       {/* Single page background with parallax */}
       <PageBg aria-hidden style={{ y: pageBgY, backgroundPosition: bgPositions }} />
+      <FooterFade aria-hidden />
 
       <ContentWrap>
       {/* Intro only */}
@@ -213,17 +195,7 @@ const Home = () => {
       {/* Sliding tech icons */}
       <TechMarquee title="Technologies I Work With" />
 
-      {/* Icon Row: featured tools/brands */}
-      <IconRowSection>
-        <IconRowWrap>
-          <IconCard><IconImg src={HoudiniLogo} alt="Houdini" /></IconCard>
-          <IconCard><IconImg src={AttolsLogo} alt="Attols" /></IconCard>
-          <IconCard><IconImg src={HoudiniLogo} alt="Houdini" /></IconCard>
-          <IconCard><IconImg src={AttolsLogo} alt="Attols" /></IconCard>
-          <IconCard><IconImg src={HoudiniLogo} alt="Houdini" /></IconCard>
-          <IconCard><IconImg src={AttolsLogo} alt="Attols" /></IconCard>
-        </IconRowWrap>
-      </IconRowSection>
+      {/* Icon Row removed as requested */}
 
       {/* About */}
       <AboutSection>

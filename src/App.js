@@ -9,6 +9,7 @@ import Tools from './pages/Tools';
 import HoudiniTools from './pages/tools/HoudiniTools';
 import StandaloneTools from './pages/tools/StandaloneTools';
 import ContactPage from './pages/ContactPage';
+import Blogs from './pages/Blogs';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -28,6 +29,7 @@ function App() {
           <Route path="/tools/houdini" element={<HoudiniTools />} />
           <Route path="/tools/standalone" element={<StandaloneTools />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/blogs" element={<Blogs />} />
         </Routes>
         <Footer />
       </AppContainer>
