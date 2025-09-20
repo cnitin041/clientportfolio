@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import PageHero from '../../components/PageHero';
 
 const Page = styled.main`
-  padding: 100px 2rem 4rem;
+  padding: 0 2rem 4rem; /* PageHero manages header offset */
 `;
 
 const Container = styled.div`
@@ -31,8 +32,9 @@ const Card = styled.div`
 const StandaloneTools = () => {
   return (
     <Page>
+      <PageHero title="Standalone Tools" subtitle="Desktop utilities and workflow helpers" />
       <Container>
-        <Title>Standalone Tools</Title>
+        <Title>Highlights</Title>
         <Paragraph>Collection of desktop utilities. Replace these placeholders with real projects.</Paragraph>
 
         <Card>

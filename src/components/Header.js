@@ -10,11 +10,11 @@ const HeaderContainer = styled(motion.header)`
   right: 0;
   z-index: 1000;
   padding: 1rem 2rem;
-  background: ${props => props.scrolled ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.7)'};
+  background: ${props => props.$scrolled ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.7)'};
   backdrop-filter: saturate(120%) blur(10px);
   transition: all 0.3s ease;
-  border-bottom: 1px solid ${props => props.scrolled ? 'rgba(0,0,0,0.08)' : 'rgba(0,0,0,0.05)'};
-  box-shadow: ${props => props.scrolled ? '0 8px 24px rgba(0,0,0,0.08)' : '0 2px 8px rgba(0,0,0,0.03)'};
+  border-bottom: 1px solid ${props => props.$scrolled ? 'rgba(0,0,0,0.08)' : 'rgba(0,0,0,0.05)'};
+  box-shadow: ${props => props.$scrolled ? '0 8px 24px rgba(0,0,0,0.08)' : '0 2px 8px rgba(0,0,0,0.03)'};
 
   @media (max-width: 768px) {
     padding: 1rem;
@@ -103,6 +103,36 @@ const MenuButton = styled.button`
   }
 `;
 
+const RightActions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const CalloutButton = styled(Link)`
+  display: none;
+  @media (min-width: 769px) {
+    display: inline-flex;
+  }
+  align-items: center;
+  justify-content: center;
+  background: #111;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.55rem 0.9rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid rgba(0,0,0,0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+    background: #000;
+  }
+`;
+
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -120,7 +150,7 @@ const Header = () => {
 
   return (
     <HeaderContainer
-      scrolled={scrolled}
+      $scrolled={scrolled}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
@@ -128,7 +158,6 @@ const Header = () => {
       <Nav>
         <Logo
           whileHover={{ scale: 1.05 }}
-          scrolled={scrolled}
           as={Link}
           to="/"
           onClick={closeMenu}
@@ -137,23 +166,26 @@ const Header = () => {
         </Logo>
         
         <NavLinks $isOpen={isOpen}>
-          <NavLink whileHover={{ scale: 1.05 }} scrolled={scrolled} to="/" onClick={closeMenu}>
+          <NavLink whileHover={{ scale: 1.05 }} to="/" onClick={closeMenu}>
             Home
           </NavLink>
-          <NavLink whileHover={{ scale: 1.05 }} scrolled={scrolled} to="/resume" onClick={closeMenu}>
+          <NavLink whileHover={{ scale: 1.05 }} to="/resume" onClick={closeMenu}>
             Resume
           </NavLink>
-          <NavLink whileHover={{ scale: 1.05 }} scrolled={scrolled} to="/tools" onClick={closeMenu}>
+          <NavLink whileHover={{ scale: 1.05 }} to="/tools" onClick={closeMenu}>
             Tools
           </NavLink>
-          <NavLink whileHover={{ scale: 1.05 }} scrolled={scrolled} to="/contact" onClick={closeMenu}>
+          <NavLink whileHover={{ scale: 1.05 }} to="/contact" onClick={closeMenu}>
             Contact
           </NavLink>
         </NavLinks>
 
-        <MenuButton onClick={() => setIsOpen(!isOpen)}>
-          ☰
-        </MenuButton>
+        <RightActions>
+          <CalloutButton to="/contact" onClick={closeMenu}>Get In Touch</CalloutButton>
+          <MenuButton onClick={() => setIsOpen(!isOpen)}>
+            ☰
+          </MenuButton>
+        </RightActions>
       </Nav>
     </HeaderContainer>
   );

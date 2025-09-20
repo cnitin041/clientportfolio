@@ -19,7 +19,8 @@
     "styled-components": "^6.0.8",
     "embla-carousel": "^8.0.0",
     "embla-carousel-react": "^8.0.0",
-    "react-router-dom": "^6.22.2"
+    "react-router-dom": "^6.22.2",
+    "lenis": "^1.0.39"
   },
   "browserslist": {
     "production": [

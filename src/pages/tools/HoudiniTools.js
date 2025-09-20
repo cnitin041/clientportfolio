@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import PageHero from '../../components/PageHero';
 
 const Page = styled.main`
-  padding: 100px 2rem 4rem;
+  padding: 0 2rem 4rem; /* PageHero manages header offset */
 `;
 
 const Container = styled.div`
@@ -31,8 +32,9 @@ const Card = styled.div`
 const HoudiniTools = () => {
   return (
     <Page>
+      <PageHero title="Houdini Tools" subtitle="Custom nodes and workflow utilities" />
       <Container>
-        <Title>Houdini Tools</Title>
+        <Title>Highlights</Title>
         <Paragraph>Showcase of custom tools and utilities for Houdini. You can expand this with projects, screenshots and links.</Paragraph>
 
         <Card>

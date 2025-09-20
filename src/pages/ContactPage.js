@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PageHero from '../components/PageHero';
 import Contact from '../components/Contact';
 
 const Page = styled.main`
@@ -9,6 +10,7 @@ const Page = styled.main`
 const ContactPage = () => {
   return (
     <Page>
+      <PageHero title="Get In Touch" subtitle="Have a project in mind or want to collaborate?" />
       <Contact />
     </Page>
   );

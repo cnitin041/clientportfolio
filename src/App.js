@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import Resume from './pages/Resume';
 import Tools from './pages/Tools';
@@ -28,6 +29,7 @@ function App() {
           <Route path="/tools/standalone" element={<StandaloneTools />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
+        <Footer />
       </AppContainer>
     </BrowserRouter>
   );
