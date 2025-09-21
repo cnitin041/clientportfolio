@@ -11,6 +11,7 @@ import StandaloneTools from './pages/tools/StandaloneTools';
 import ContactPage from './pages/ContactPage';
 import Blogs from './pages/Blogs';
 import BlogDetail from './pages/BlogDetail';
+import Filmography from './pages/Filmography';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -32,6 +33,7 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:slug" element={<BlogDetail />} />
+          <Route path="/filmography" element={<Filmography />} />
         </Routes>
         <Footer />
       </AppContainer>

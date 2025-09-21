@@ -175,6 +175,9 @@ const Header = () => {
           <NavLink whileHover={{ scale: 1.05 }} to="/tools" onClick={closeMenu}>
             Tools
           </NavLink>
+          <NavLink whileHover={{ scale: 1.05 }} to="/filmography" onClick={closeMenu}>
+            Filmography
+          </NavLink>
           <NavLink whileHover={{ scale: 1.05 }} to="/blogs" onClick={closeMenu}>
             Blogs
           </NavLink>
