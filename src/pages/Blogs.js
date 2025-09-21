@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { blogs } from '../data/blogs';
+import { loadAllBlogs } from '../utils/blogLoader';
+import PageHero from '../components/PageHero';
 
 const Page = styled.main`
   padding: 0 2rem 4rem; /* header offset handled by Header */
@@ -13,18 +14,28 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-const Hero = styled.section`
-  padding: 7rem 0 3rem;
+// PageHero will handle the hero section for consistency
+
+const ChipsBar = styled.div`
+  max-width: 1200px;
+  margin: 0.5rem auto 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 `;
 
-const HeroTitle = styled.h1`
-  font-size: 2.5rem;
-  margin: 0 0 0.5rem 0;
-`;
+const Chip = styled.button`
+  appearance: none;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: ${p => (p.$active ? '#111' : '#fff')};
+  color: ${p => (p.$active ? '#fff' : '#222')};
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
 
-const HeroSubtitle = styled.p`
-  color: #555;
-  font-size: 1.1rem;
+  &:hover { transform: translateY(-1px); }
 `;
 
 const Grid = styled.div`
@@ -99,13 +110,25 @@ const Excerpt = styled.p`
 // blogs imported from data
 
 const Blogs = () => {
+  const allBlogs = loadAllBlogs();
+  const [category, setCategory] = useState('All');
+  const categories = useMemo(() => {
+    const set = new Set(allBlogs.map(b => b.category || 'Uncategorized'));
+    return ['All', ...Array.from(set)];
+  }, [allBlogs]);
+  const blogs = useMemo(() => allBlogs.filter(b => category === 'All' || b.category === category), [allBlogs, category]);
   return (
     <Page>
+      <PageHero
+        title="Blog"
+        subtitle="Thoughts on Houdini tools, product design, and modern web development."
+      />
+      <ChipsBar>
+        {categories.map(cat => (
+          <Chip key={cat} $active={cat === category} onClick={() => setCategory(cat)}>{cat}</Chip>
+        ))}
+      </ChipsBar>
       <Container>
-        <Hero>
-          <HeroTitle>Blog</HeroTitle>
-          <HeroSubtitle>Thoughts on Houdini tools, product design, and modern web development.</HeroSubtitle>
-        </Hero>
 
         <Grid>
           {blogs.map((b, i) => (
