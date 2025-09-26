@@ -10,18 +10,36 @@ const Page = styled.main`
 `;
 
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
 `;
 
 // PageHero will handle the hero section for consistency
 
 const ChipsBar = styled.div`
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0.5rem auto 1.25rem;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+`;
+
+const Tabs = styled.div`
+  max-width: 1320px;
+  margin: 0.75rem auto 0.75rem;
+  display: flex;
+  gap: 10px;
+`;
+
+const Tab = styled.button`
+  appearance: none;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: ${p => (p.$active ? '#111' : '#fff')};
+  color: ${p => (p.$active ? '#fff' : '#222')};
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
 `;
 
 const Chip = styled.button`
@@ -123,6 +141,12 @@ const Blogs = () => {
         title="Blog"
         subtitle="Thoughts on Houdini tools, product design, and modern web development."
       />
+      {/* Primary tabs */}
+      <Tabs>
+        {['All','Houdini','Python','AI'].map(t => (
+          <Tab key={t} $active={category===t} onClick={()=>setCategory(t)}>{t}</Tab>
+        ))}
+      </Tabs>
       <ChipsBar>
         {categories.map(cat => (
           <Chip key={cat} $active={cat === category} onClick={() => setCategory(cat)}>{cat}</Chip>

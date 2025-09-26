@@ -116,6 +116,24 @@ const ShareButton = styled.a`
   background: #fff;
 `;
 
+const IconBtn = styled.button`
+  appearance: none;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: #fff;
+  border-radius: 10px;
+  padding: 6px 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  svg { width: 18px; height: 18px; }
+`;
+
+const LikeCount = styled.span`
+  font-size: 0.95rem;
+  color: #555;
+`;
+
 const SectionTitle = styled.h3`
   margin: 1.5rem 0 0.75rem 0;
 `;
@@ -240,6 +258,13 @@ const BlogDetail = () => {
   const [showForm, setShowForm] = useState(false);
   const [moderation, setModeration] = useState(false);
   const [authorized, setAuthorized] = useState(false);
+  const likeKey = `likes:${slug}`;
+  const [likes, setLikes] = useState(() => {
+    try { return Number(localStorage.getItem(likeKey) || 0); } catch { return 0; }
+  });
+  const [liked, setLiked] = useState(() => {
+    try { return localStorage.getItem(`${likeKey}:me`) === '1'; } catch { return false; }
+  });
 
   useEffect(() => {
     try {
@@ -257,6 +282,24 @@ const BlogDetail = () => {
     try { localStorage.setItem(storageKey, JSON.stringify(next)); } catch {}
     setMessage('');
     setShowForm(false);
+  };
+
+  const toggleLike = () => {
+    try {
+      if (liked) {
+        const next = Math.max(0, likes - 1);
+        setLikes(next);
+        localStorage.setItem(likeKey, String(next));
+        localStorage.setItem(`${likeKey}:me`, '0');
+        setLiked(false);
+      } else {
+        const next = likes + 1;
+        setLikes(next);
+        localStorage.setItem(likeKey, String(next));
+        localStorage.setItem(`${likeKey}:me`, '1');
+        setLiked(true);
+      }
+    } catch {}
   };
 
   const deleteComment = (idx) => {
@@ -403,11 +446,25 @@ const BlogDetail = () => {
             </Tags>
           )}
           <ShareRow>
-            <span>Share:</span>
+            <IconBtn onClick={toggleLike} aria-label="Like post" title="Like post" style={{ borderColor: liked ? '#e11d48' : 'rgba(0,0,0,0.1)', background: liked ? '#ffe4e6' : '#fff', color: liked ? '#9f1239' : '#111' }}>
+              <svg viewBox="0 0 24 24" fill={liked ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61c-1.54-1.34-3.97-1.13-5.37.5L12 8.09l-3.47-3c-1.4-1.63-3.83-1.84-5.37-.5-1.73 1.51-1.8 4.16-.2 5.76l8.1 8.05c.23.23.54.36.87.36s.64-.13.87-.36l8.1-8.05c1.6-1.6 1.53-4.25-.2-5.76z"/></svg>
+            </IconBtn>
+            <LikeCount>{likes}</LikeCount>
+            <span style={{marginLeft:8}}>Share:</span>
             {typeof window !== 'undefined' && (
               <>
-                <ShareButton href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(blog.title)}&url=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noreferrer">Twitter</ShareButton>
-                <ShareButton href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noreferrer">LinkedIn</ShareButton>
+                <IconBtn as="a" href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noreferrer" aria-label="Share on LinkedIn" title="LinkedIn">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0 8h5v16H0zM8 8h4.8v2.2h.07c.67-1.2 2.3-2.46 4.74-2.46C21.5 7.74 24 10 24 14.3V24h-5v-8.5c0-2.03-.04-4.64-2.83-4.64-2.83 0-3.26 2.21-3.26 4.49V24H8z"/></svg>
+                </IconBtn>
+                <IconBtn as="a" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noreferrer" aria-label="Share on Facebook" title="Facebook">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 10-11.5 9.9v-7h-2v-3h2v-2.3c0-2 1.2-3.2 3-3.2.9 0 1.8.16 1.8.16v2h-1c-1 0-1.3.62-1.3 1.26V12h2.2l-.35 3h-1.85v7A10 10 0 0022 12z"/></svg>
+                </IconBtn>
+                <IconBtn as="a" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(blog.title)}&url=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noreferrer" aria-label="Share on X" title="X / Twitter">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21l-6.53 7.46L22 22h-6.62l-4.33-5.66L5.82 22H3l6.89-7.87L2 2h6.74l3.9 5.2L18.24 2zm-2.32 18h1.28L8.15 4H6.88l9.04 16z"/></svg>
+                </IconBtn>
+                <IconBtn as="a" href={`https://www.instagram.com/?url=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noreferrer" aria-label="Share on Instagram" title="Instagram">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H7c-1.66 0-3-1.34-3-3V7c0-1.66 1.34-3 3-3h10z"/></svg>
+                </IconBtn>
               </>
             )}
           </ShareRow>

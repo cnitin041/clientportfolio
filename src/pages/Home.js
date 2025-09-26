@@ -44,15 +44,18 @@ const PageBg = styled(motion.div)`
   pointer-events: none;
   z-index: 0;
   background-color: #f5f5f5;
-  /* Multiple backgrounds: two soft radial blobs + diagonal tint + subtle dot pattern */
+  /* Multiple backgrounds: white wash + cinematic photo + two soft radial blobs + diagonal tint + subtle dot pattern */
   background-image:
+    linear-gradient(to bottom, rgba(255,255,255,0.90), rgba(255,255,255,0.75)),
+    url('https://images.unsplash.com/photo-1517602302552-471fe67acf66?auto=format&fit=crop&w=1600&q=80'),
     radial-gradient(640px 640px at 78% 12%, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.11) 42%, rgba(0,0,0,0) 66%),
     radial-gradient(820px 820px at 88% 88%, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.11) 42%, rgba(0,0,0,0) 66%),
     linear-gradient(135deg, rgba(0,0,0,0.03), rgba(0,0,0,0.00)),
     url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><circle cx="2" cy="2" r="1.2" fill="%23777777" fill-opacity="0.16"/></svg>');
-  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
-  background-size: auto, auto, 100% 100%, 28px 28px;
-  background-position: center 0px, center 320px, 0 0, 0px 0px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+  background-size: 100% 100%, cover, auto, auto, 100% 100%, 28px 28px;
+  background-position: 0 0, center 0px, center 320px, 0 0, 0px 0px, 0px 0px;
+  filter: grayscale(90%) contrast(1.02) brightness(1.06);
 `;
 
 const Grid = styled.div`
@@ -161,11 +164,12 @@ const Desc = styled.p`
 const Home = () => {
   const { scrollY } = useScroll();
   // page background parallax: animate container and layers at different speeds
-  const pageBgY = useTransform(scrollY, [0, 1400], [0, -120]);
+  const pageBgY = useTransform(scrollY, [0, 1400], [0, -80]);
+  const photoY = useTransform(scrollY, [0, 1400], [0, 180]);
   const blob1Y = useTransform(scrollY, [0, 1400], [0, 140]);
   const blob2Y = useTransform(scrollY, [0, 1400], [0, 220]);
   const patternY = useTransform(scrollY, [0, 1400], [0, 320]);
-  const bgPositions = useMotionTemplate`center ${blob1Y}px, center ${blob2Y}px, 0px ${patternY}px`;
+  const bgPositions = useMotionTemplate`0px 0px, center ${photoY}px, center ${blob1Y}px, center ${blob2Y}px, 0px 0px, 0px 0px`;
   // Parallax background offsets for highlight cards
   const card1Y = useTransform(scrollY, [0, 800], [0, 80]);
   const card2Y = useTransform(scrollY, [0, 800], [0, 60]);
@@ -247,46 +251,7 @@ const Home = () => {
         </HighlightsGrid>
       </HighlightsSection>
 
-      {/* Shortcuts */}
-      <ShortcutSection>
-        <Container>
-          <Grid>
-            <Card
-              to="/resume"
-              style={{
-                backgroundImage:
-                  "linear-gradient(to bottom, rgba(255,255,255,0.90), rgba(255,255,255,0.96)), url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop')",
-                backgroundPosition: sc1Pos
-              }}
-            >
-              <Title>Resume</Title>
-              <Desc>Work experience and education.</Desc>
-            </Card>
-            <Card
-              to="/tools"
-              style={{
-                backgroundImage:
-                  "linear-gradient(to bottom, rgba(255,255,255,0.90), rgba(255,255,255,0.96)), url('https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?q=80&w=1200&auto=format&fit=crop')",
-                backgroundPosition: sc2Pos
-              }}
-            >
-              <Title>Tools</Title>
-              <Desc>Houdini and Standalone utilities.</Desc>
-            </Card>
-            <Card
-              to="/contact"
-              style={{
-                backgroundImage:
-                  "linear-gradient(to bottom, rgba(255,255,255,0.90), rgba(255,255,255,0.96)), url('https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop')",
-                backgroundPosition: sc3Pos
-              }}
-            >
-              <Title>Get In Touch</Title>
-              <Desc>Say hello or start a project.</Desc>
-            </Card>
-          </Grid>
-        </Container>
-      </ShortcutSection>
+      {/* Shortcuts removed as per request */}
       </ContentWrap>
     </div>
   );

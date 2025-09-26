@@ -1,12 +1,14 @@
 # Mehul Joshi - Professional Portfolio
 
-A modern, responsive React portfolio website featuring smooth animations, professional design, and interactive elements.
+Modern portfolio built with React, Styled Components, React Router and Framer Motion. It includes a blogs system based on JSON files, a cinematic Filmography page with parallax posters, and polished, consistent UI across pages.
 
-## 🚀 Features
+## Tech Stack
+- React 18, React Router
+- styled-components
+- framer-motion
+- Prism.js (syntax highlighting via CDN)
 
-- **Modern Design**: Clean, professional layout with gradient backgrounds and glassmorphism effects
-- **Smooth Animations**: Powered by Framer Motion for engaging user interactions
-- **Responsive**: Fully responsive design that works on all devices
+---
 - **Interactive Elements**: Hover effects, scroll animations, and dynamic content
 - **Professional Sections**:
   - Hero section with animated introduction

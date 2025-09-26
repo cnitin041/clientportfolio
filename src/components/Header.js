@@ -22,10 +22,11 @@ const HeaderContainer = styled(motion.header)`
 `;
 
 const Nav = styled.nav`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 `;
 
@@ -100,6 +101,10 @@ const MenuButton = styled.button`
 
   @media (max-width: 768px) {
     display: block;
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 `;
 
@@ -107,6 +112,23 @@ const RightActions = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+`;
+
+const Socials = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  a { color: #111; display: inline-flex; }
+
+  svg { width: 20px; height: 20px; }
+
+  @media (max-width: 768px) {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 `;
 
 const CalloutButton = styled(Link)`
@@ -187,6 +209,20 @@ const Header = () => {
         </NavLinks>
 
         <RightActions>
+          <Socials aria-label="social-links">
+            <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0 8h5v16H0zM8 8h4.8v2.2h.07c.67-1.2 2.3-2.46 4.74-2.46C21.5 7.74 24 10 24 14.3V24h-5v-8.5c0-2.03-.04-4.64-2.83-4.64-2.83 0-3.26 2.21-3.26 4.49V24H8z"/></svg>
+            </a>
+            <a href="https://github.com/" target="_blank" rel="noreferrer" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.99 5.24.99 11.5c0 4.85 3.15 8.96 7.51 10.41.55.1.75-.24.75-.53 0-.26-.01-.96-.02-1.88-3.05.66-3.69-1.47-3.69-1.47-.5-1.26-1.22-1.6-1.22-1.6-.99-.68.08-.67.08-.67 1.1.08 1.68 1.13 1.68 1.13.98 1.67 2.57 1.19 3.2.91.1-.71.38-1.19.69-1.46-2.43-.28-4.99-1.21-4.99-5.4 0-1.19.43-2.16 1.13-2.92-.11-.28-.49-1.4.11-2.92 0 0 .92-.29 3.01 1.12.87-.24 1.81-.36 2.74-.37.93.01 1.87.13 2.74.37 2.09-1.41 3.01-1.12 3.01-1.12.6 1.52.22 2.64.11 2.92.7.76 1.13 1.73 1.13 2.92 0 4.2-2.57 5.12-5.01 5.39.39.34.73 1.02.73 2.06 0 1.49-.01 2.68-.01 3.05 0 .29.2.63.76.52A10.99 10.99 0 0 0 23 11.5C23 5.24 18.27.5 12 .5z"/></svg>
+            </a>
+            <a href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H7c-1.66 0-3-1.34-3-3V7c0-1.66 1.34-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm6.5-.75a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z"/></svg>
+            </a>
+            <a href="https://www.imdb.com/" target="_blank" rel="noreferrer" aria-label="IMDb">
+              <svg viewBox="0 0 64 32" fill="currentColor"><rect width="64" height="32" rx="6"/><text x="12" y="21" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="14" fill="#fff">IMDb</text></svg>
+            </a>
+          </Socials>
           <CalloutButton to="/contact" onClick={closeMenu}>Get In Touch</CalloutButton>
           <MenuButton onClick={() => setIsOpen(!isOpen)}>
             ☰

@@ -75,6 +75,8 @@ const Chip = styled.span`
 const Resp = styled.ul`
   margin: 10px 0 0 16px;
   color: #555;
+  font-size: 0.9rem;
+  line-height: 1.35;
 `;
 
 const FiltersWrap = styled.div`
@@ -206,14 +208,6 @@ const LetterboxBottom = styled.div`
 `;
 
 const FilmCard = ({ film: f, index: i, onOpen }) => {
-  const { scrollY } = useScroll();
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 600;
-  const amp = isMobile ? 60 : 160;
-  const layerOffset = (i % 4) * (isMobile ? 4 : 12);
-  const y = useTransform(scrollY, [0, 600], [0, amp + layerOffset]);
-  const moveY = useTransform(scrollY, [0, 600], [0, -12 - (i % 4) * 3]);
-  const bgPos = useMotionTemplate`center ${y}px`;
-
   return (
     <Card
       initial={{ opacity: 0, y: 20 }}
@@ -222,7 +216,7 @@ const FilmCard = ({ film: f, index: i, onOpen }) => {
       viewport={{ once: true }}
       onClick={() => onOpen(f)}
     >
-      <Poster style={{ backgroundImage: `url(${f.image})`, backgroundPosition: bgPos, y: moveY }} />
+      <Poster style={{ backgroundImage: `url(${f.image})`, backgroundPosition: 'center' }} />
       <Body>
         <Title>{f.title}</Title>
         <Meta>{f.role} • {f.studio} • {f.year}</Meta>
@@ -276,11 +270,7 @@ const Filmography = () => {
           ))}
         </Grid>
       </Container>
-      <ThumbStrip>
-        {films.map(f => (
-          <Thumb key={f.id} src={f.image} alt={f.title} loading="lazy" onClick={()=>setActive(f)} />
-        ))}
-      </ThumbStrip>
+      {/* Bottom carousel removed as requested */}
 
       {active && (
         <Overlay initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={()=>setActive(null)}>

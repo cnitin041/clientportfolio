@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Particles from './Particles';
 
 const Wrapper = styled.section`
@@ -10,7 +10,7 @@ const Wrapper = styled.section`
 `;
 
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   text-align: center;
 `;
@@ -37,6 +37,10 @@ const BgBlob = styled(motion.div)`
 `;
 
 const PageHero = ({ title, subtitle, showParticles = true }) => {
+  const { scrollY } = useScroll();
+  const blobY = useTransform(scrollY, [0, 600], [0, 40]);
+  const titleY = useTransform(scrollY, [0, 600], [0, 14]);
+  const subY = useTransform(scrollY, [0, 600], [0, 20]);
   return (
     <Wrapper>
       {showParticles && (
@@ -45,14 +49,15 @@ const PageHero = ({ title, subtitle, showParticles = true }) => {
       <BgBlob
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
+        style={{ y: blobY }}
         transition={{ duration: 0.8 }}
       />
       <Container>
-        <Title initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+        <Title initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} style={{ y: titleY }}>
           {title}
         </Title>
         {subtitle && (
-          <Subtitle initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
+          <Subtitle initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }} style={{ y: subY }}>
             {subtitle}
           </Subtitle>
         )}
