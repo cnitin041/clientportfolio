@@ -36,6 +36,21 @@ const Logo = styled(motion.div)`
   color: #222;
   cursor: pointer;
   letter-spacing: 0.5px;
+  z-index: 1;
+
+  @media (max-width: 768px) {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: max-content;
+    pointer-events: auto;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 1.2rem;
+    letter-spacing: 0.3px;
+  }
 `;
 
 const NavLinks = styled.div`
@@ -105,6 +120,7 @@ const MenuButton = styled.button`
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 2; /* above centered logo */
   }
 `;
 
@@ -128,6 +144,13 @@ const Socials = styled.div`
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 2; /* above centered logo */
+  }
+
+  /* On very narrow screens, keep only first two icons to avoid overlap */
+  @media (max-width: 400px) {
+    a:nth-child(n+3) { display: none; }
+    gap: 8px;
   }
 `;
 

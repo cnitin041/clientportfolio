@@ -16,11 +16,13 @@ const HeroSection = styled.section`
 `;
 
 const HeroContainer = styled.div`
-  max-width: 1200px;
+  max-width: 1320px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
+  justify-items: center; /* center columns' contents */
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -31,6 +33,7 @@ const HeroContainer = styled.div`
 
 const HeroContent = styled(motion.div)`
   color: #222;
+  text-align: center;
 `;
 
 const HeroTitle = styled(motion.h1)`
@@ -58,9 +61,9 @@ const HeroSubtitle = styled(motion.h2)`
 const HeroDescription = styled(motion.p)`
   font-size: 1.1rem;
   line-height: 1.7;
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem; /* center the paragraph block */
   color: #555;
-  max-width: 560px;
+  max-width: 640px;
 
   @media (max-width: 768px) {
     font-size: 1rem;
