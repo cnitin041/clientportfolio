@@ -319,7 +319,9 @@ const BlogDetail = () => {
 
       const ensurePrism = () => new Promise((resolve) => {
         try {
-          if (window.Prism) return resolve();
+          if (window.Prism && window.Prism.languages && window.Prism.highlightAll) {
+            return resolve();
+          }
           // CSS
           const cssId = 'prism-tomorrow-css';
           if (!document.getElementById(cssId)) {
@@ -340,21 +342,23 @@ const BlogDetail = () => {
             s.crossOrigin = 'anonymous';
             s.onload = () => {
               try {
-                const sLang = document.createElement('script');
-                sLang.src = 'https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js';
-                sLang.crossOrigin = 'anonymous';
-                sLang.onload = () => {
-                  try {
-                    const sJs = document.createElement('script');
-                    sJs.src = 'https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js';
-                    sJs.crossOrigin = 'anonymous';
-                    sJs.onload = resolve;
-                    sJs.onerror = () => resolve();
-                    document.body.appendChild(sJs);
-                  } catch { resolve(); }
-                };
-                sLang.onerror = () => resolve();
-                document.body.appendChild(sLang);
+                // Load dependencies: clike (required by JavaScript) -> python -> javascript
+                const loadScript = (id, src) => new Promise((res) => {
+                  if (document.getElementById(id)) return res();
+                  const el = document.createElement('script');
+                  el.id = id;
+                  el.src = src;
+                  el.crossOrigin = 'anonymous';
+                  el.onload = () => res();
+                  el.onerror = () => res();
+                  document.body.appendChild(el);
+                });
+
+                loadScript('prism-clike-js', 'https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-clike.min.js')
+                  .then(() => loadScript('prism-python-js', 'https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js'))
+                  .then(() => loadScript('prism-javascript-js', 'https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js'))
+                  .then(resolve)
+                  .catch(() => resolve());
               } catch { resolve(); }
             };
             s.onerror = () => resolve();
