@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import PageBackground from './components/PageBackground';
 import Home from './pages/Home';
 import Resume from './pages/Resume';
 import Tools from './pages/Tools';
@@ -12,21 +13,25 @@ import ContactPage from './pages/ContactPage';
 import Blogs from './pages/Blogs';
 import BlogDetail from './pages/BlogDetail';
 import Filmography from './pages/Filmography';
+import Showcase from './pages/Showcase';
 
 const AppContainer = styled.div`
   min-height: 100vh;
-  background: #f7f7f7;
+  background: transparent; /* allow global background to show through */
   color: #222;
 `;
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      {/* Global parallax background behind all pages */}
+      <PageBackground />
       <AppContainer>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/resume" element={<Resume />} />
+          <Route path="/showcase" element={<Showcase />} />
           <Route path="/tools" element={<Tools />} />
           <Route path="/tools/houdini" element={<HoudiniTools />} />
           <Route path="/tools/standalone" element={<StandaloneTools />} />

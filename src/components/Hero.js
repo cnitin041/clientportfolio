@@ -18,8 +18,9 @@ const HeroSection = styled.section`
 const HeroContainer = styled.div`
   max-width: 1320px;
   margin: 0 auto;
+  padding: 0 2rem; /* keep centered with page gutters */
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); /* slight balance for visual center */
   gap: 4rem;
   align-items: center;
   justify-items: center; /* center columns' contents */
@@ -34,13 +35,16 @@ const HeroContainer = styled.div`
 const HeroContent = styled(motion.div)`
   color: #222;
   text-align: center;
+  max-width: 760px;
+  margin: 0 auto;
 `;
 
 const HeroTitle = styled(motion.h1)`
   font-size: 3.5rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem; /* center block */
   color: #111;
+  max-width: 900px;
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
@@ -80,6 +84,29 @@ const CTAButton = styled(motion.button)`
   border-radius: 10px;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+    background: #000;
+  }
+`;
+
+// Motion-enabled Link with button appearance to avoid passing motion props to plain DOM nodes
+const CTAButtonLink = styled(motion(Link))`
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 0.9rem 1.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     transform: translateY(-1px);
@@ -239,14 +266,13 @@ const Hero = () => {
             I specialize in modern web technologies and love bringing ideas to life through code.
           </HeroDescription>
           <motion.div variants={itemVariants}>
-            <CTAButton
-              as={Link}
+            <CTAButtonLink
               to="/contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               Get In Touch
-            </CTAButton>
+            </CTAButtonLink>
           </motion.div>
         </HeroContent>
 

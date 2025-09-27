@@ -72,7 +72,8 @@ const ShareRow = styled.div`
 const StandaloneTools = () => {
   return (
     <Page>
-      <PageHero title="Standalone Tools" subtitle="Desktop utilities and workflow helpers" />
+      {/* Increase top offset to account for header + tools submenu height */}
+      <PageHero topOffset={176} title="Standalone Tools" subtitle="Desktop utilities and workflow helpers" />
       <Container>
         <Title>Highlights</Title>
         <Paragraph>Collection of desktop utilities. Click a card to learn more.</Paragraph>

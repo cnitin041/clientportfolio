@@ -72,7 +72,8 @@ const ShareRow = styled.div`
 const HoudiniTools = () => {
   return (
     <Page>
-      <PageHero title="Houdini Tools" subtitle="Custom nodes and workflow utilities" />
+      {/* Increase top offset to account for header + tools submenu height */}
+      <PageHero topOffset={176} title="Houdini Tools" subtitle="Custom nodes and workflow utilities" />
       <Container>
         <Title>Highlights</Title>
         <Paragraph>Showcase of custom tools and utilities for Houdini. Click a card to learn more.</Paragraph>

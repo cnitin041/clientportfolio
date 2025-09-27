@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Particles from './Particles';
 
 const Wrapper = styled.section`
-  padding: 120px 2rem 40px; /* offset for fixed header */
+  padding: ${props => (props.$offset ?? 120)}px 2rem 40px; /* offset for fixed header */
   position: relative;
   overflow: hidden;
 `;
@@ -36,13 +36,13 @@ const BgBlob = styled(motion.div)`
   pointer-events: none;
 `;
 
-const PageHero = ({ title, subtitle, showParticles = true }) => {
+const PageHero = ({ title, subtitle, showParticles = true, topOffset = 120 }) => {
   const { scrollY } = useScroll();
   const blobY = useTransform(scrollY, [0, 600], [0, 40]);
   const titleY = useTransform(scrollY, [0, 600], [0, 14]);
   const subY = useTransform(scrollY, [0, 600], [0, 20]);
   return (
-    <Wrapper>
+    <Wrapper $offset={topOffset}>
       {showParticles && (
         <Particles density={50} speed={0.3} />
       )}

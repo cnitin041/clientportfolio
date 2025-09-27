@@ -15,7 +15,7 @@ const ContactSection = styled.section`
 `;
 
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 `;
 
@@ -245,17 +245,7 @@ const SocialLink = styled(motion.a)`
   }
 `;
 
-const Footer = styled.footer`
-  text-align: center;
-  padding: 2rem 0;
-  border-top: 1px solid rgba(0,0,0,0.06);
-  margin-top: 3rem;
-`;
-
-const FooterText = styled.p`
-  color: #777;
-  font-size: 0.9rem;
-`;
+/* Removed page-local Footer; using global Footer component in layout */
 
 const Contact = () => {
   const [ref, inView] = useInView({
@@ -489,11 +479,7 @@ const Contact = () => {
           </SocialLink>
         </SocialLinks>
 
-        <Footer>
-          <FooterText>
-            © 2024 Mehul Joshi.
-          </FooterText>
-        </Footer>
+        {/* Global Footer is rendered from App layout */}
       </Container>
     </ContactSection>
   );

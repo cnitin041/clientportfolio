@@ -12,7 +12,7 @@ const TilesGrid = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  max-width: 1120px;
+  max-width: 1400px;
   margin: 0 auto 2rem;
 
   @media (max-width: 1023px) {
@@ -25,7 +25,7 @@ const TilesGrid = styled(motion.div)`
 `;
 
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 `;
 

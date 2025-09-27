@@ -10,7 +10,7 @@ const Page = styled.main`
 `;
 
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 `;
 
@@ -86,7 +86,8 @@ const CardDesc = styled.p`
 const Tools = () => {
   return (
     <Page>
-      <PageHero title="Tools" subtitle="Explore Standalone and Houdini utilities" />
+      {/* Increase top offset to account for header + tools submenu height */}
+      <PageHero topOffset={176} title="Tools" subtitle="Explore Standalone and Houdini utilities" />
       <Container>
         <Grid>
           <Card to="/tools/standalone">

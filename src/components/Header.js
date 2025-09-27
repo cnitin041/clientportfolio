@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const HeaderContainer = styled(motion.header)`
   position: fixed;
@@ -66,8 +66,13 @@ const NavLinks = styled.div`
     background: #ffffff;
     backdrop-filter: blur(6px);
     flex-direction: column;
-    padding: 2rem;
-    gap: 1rem;
+    padding: 1rem 1.25rem 1.25rem;
+    gap: 0.25rem;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.10);
+    z-index: 1001; /* above overlay */
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
   }
 `;
 
@@ -100,6 +105,7 @@ const NavLink = styled(motion(Link))`
 
   @media (max-width: 768px) {
     color: #333;
+    padding: 0.75rem 0.25rem; /* bigger tap target */
     &:hover {
       color: #000;
     }
@@ -154,6 +160,67 @@ const Socials = styled.div`
   }
 `;
 
+const SubNavBar = styled.div`
+  position: relative;
+  margin-top: 4px;
+  background: transparent;
+`;
+
+const SubNav = styled.nav`
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 2rem 10px;
+
+  a {
+    text-decoration: none;
+    color: #333;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+
+  a:hover {
+    transform: translateY(-1px);
+    border-color: rgba(0,0,0,0.14);
+    box-shadow: 0 10px 18px rgba(0,0,0,0.10);
+  }
+
+  a[aria-current="page"] {
+    background: #111;
+    color: #fff;
+    border-color: rgba(0,0,0,0.16);
+    box-shadow: 0 12px 22px rgba(0,0,0,0.14);
+  }
+
+  @media (max-width: 768px) {
+    padding: 6px 1rem 8px;
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar { display: none; }
+    justify-content: flex-start; /* allow scrollable chips */
+    a { display: inline-flex; white-space: nowrap; }
+  }
+`;
+
+// Dim background overlay for mobile menu
+const MobileOverlay = styled.div`
+  @media (min-width: 769px) { display: none; }
+  display: ${props => (props.$show ? 'block' : 'none')};
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+  z-index: 1000; /* below the mobile panel */
+`;
+
 const CalloutButton = styled(Link)`
   display: none;
   @media (min-width: 769px) {
@@ -181,6 +248,7 @@ const CalloutButton = styled(Link)`
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -191,6 +259,14 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    const original = document.body.style.overflow;
+    if (isOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = original || '';
+    return () => { document.body.style.overflow = original || ''; };
+  }, [isOpen]);
+
   const closeMenu = () => setIsOpen(false);
 
   return (
@@ -200,6 +276,8 @@ const Header = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
+      {/* Overlay for mobile menu */}
+      <MobileOverlay $show={isOpen} onClick={() => setIsOpen(false)} />
       <Nav>
         <Logo
           whileHover={{ scale: 1.05 }}
@@ -216,6 +294,9 @@ const Header = () => {
           </NavLink>
           <NavLink whileHover={{ scale: 1.05 }} to="/resume" onClick={closeMenu}>
             Resume
+          </NavLink>
+          <NavLink whileHover={{ scale: 1.05 }} to="/showcase" onClick={closeMenu}>
+            Showcase
           </NavLink>
           <NavLink whileHover={{ scale: 1.05 }} to="/tools" onClick={closeMenu}>
             Tools
@@ -243,15 +324,33 @@ const Header = () => {
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H7c-1.66 0-3-1.34-3-3V7c0-1.66 1.34-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm6.5-.75a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z"/></svg>
             </a>
             <a href="https://www.imdb.com/" target="_blank" rel="noreferrer" aria-label="IMDb">
-              <svg viewBox="0 0 64 32" fill="currentColor"><rect width="64" height="32" rx="6"/><text x="12" y="21" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="14" fill="#fff">IMDb</text></svg>
+              <svg viewBox="0 0 64 32" width="24" height="24" aria-hidden="true">
+                <rect width="64" height="32" rx="6" fill="#F5C518"/>
+                <g fill="#111">
+                  <path d="M8 9h4v14H8zM14 9h3l1 4 1-4h3v14h-3v-9l-1.2 5h-1.6L17 14v9h-3V9zM27 9h5c2.8 0 4 1.5 4 4v6c0 2.6-1.4 4-4 4h-5V9zm4 3v8h1c.9 0 1-.5 1-1.5v-5c0-1-.2-1.5-1-1.5h-1zM40 9h4c2.8 0 4 1.5 4 4v6c0 2.6-1.4 4-4 4h-4V9zm4 3v8h1c.9 0 1-.5 1-1.5v-5c0-1-.2-1.5-1-1.5h-1z"/>
+                </g>
+              </svg>
             </a>
           </Socials>
           <CalloutButton to="/contact" onClick={closeMenu}>Get In Touch</CalloutButton>
-          <MenuButton onClick={() => setIsOpen(!isOpen)}>
+          <MenuButton
+            aria-label="Toggle menu"
+            aria-expanded={isOpen}
+            onClick={() => setIsOpen(!isOpen)}
+          >
             ☰
           </MenuButton>
         </RightActions>
       </Nav>
+      {location.pathname.startsWith('/tools') && (
+        <SubNavBar>
+          <SubNav>
+            <Link to="/tools" aria-current={location.pathname === '/tools' ? 'page' : undefined}>Overview</Link>
+            <Link to="/tools/standalone" aria-current={location.pathname.startsWith('/tools/standalone') ? 'page' : undefined}>Standalone</Link>
+            <Link to="/tools/houdini" aria-current={location.pathname.startsWith('/tools/houdini') ? 'page' : undefined}>Houdini</Link>
+          </SubNav>
+        </SubNavBar>
+      )}
     </HeaderContainer>
   );
 };

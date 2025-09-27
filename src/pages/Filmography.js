@@ -10,7 +10,7 @@ const Page = styled.main`
 `;
 
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 `;
 
@@ -80,7 +80,7 @@ const Resp = styled.ul`
 `;
 
 const FiltersWrap = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0.5rem auto 1.25rem;
   display: grid;
   gap: 10px;
@@ -153,7 +153,7 @@ const CloseBtn = styled.button`
 `;
 
 const ThumbStrip = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 1.5rem auto 0;
   display: grid;
   grid-auto-flow: column;
