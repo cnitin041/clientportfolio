@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useForm, ValidationError } from '@formspree/react';
 import { 
   FaLinkedin, 
   FaGithub, 
   FaTwitter,
   FaInstagram,
-  FaPaperPlane
+  FaPaperPlane,
+  FaCheckCircle,
+  FaExclamationCircle
 } from 'react-icons/fa';
 
 const ContactSection = styled.section`
@@ -170,35 +173,87 @@ const TextArea = styled.textarea`
     box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
   }
 
-  &::placeholder {
-    color: #999;
-  }
 `;
 
 const SubmitButton = styled(motion.button)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
   background: #111;
   color: #fff;
   border: none;
-  padding: 0.9rem 1.4rem;
+  padding: 1rem 2rem;
   font-size: 1rem;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 50px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
 
   &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     background: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   }
 
   &:disabled {
-    opacity: 0.7;
+    background: #2ecc71;
     cursor: not-allowed;
+    transform: none !important;
   }
+
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .formspree-success {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2ecc71;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 50px;
+    padding: 1rem;
+    animation: fade-in 0.3s ease-in-out;
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+`;
+
+const ErrorText = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #e74c3c;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  background: rgba(231, 76, 60, 0.1);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border-left: 3px solid #e74c3c;
 `;
 
 const SocialLinks = styled(motion.div)`
@@ -253,6 +308,7 @@ const Contact = () => {
     triggerOnce: true
   });
 
+  const [state, handleSubmit] = useForm('meorzqjw'); // Formspree form ID
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -267,12 +323,12 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! I\'ll get back to you soon.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    await handleSubmit(e);
+    if (state.succeeded) {
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    }
   };
 
   const containerVariants = {
@@ -370,7 +426,12 @@ const Contact = () => {
             </InfoItem>
           </ContactInfo>
 
-          <ContactForm variants={itemVariants} onSubmit={handleSubmit}>
+          <ContactForm 
+            variants={itemVariants} 
+            onSubmit={onSubmit}
+            action="https://formspree.io/f/meorzqjw"
+            method="POST"
+          >
             <FormGroup>
               <Label htmlFor="name">Name</Label>
               <Input
@@ -394,6 +455,11 @@ const Contact = () => {
                 onChange={handleInputChange}
                 placeholder="your.email@example.com"
                 required
+              />
+              <ValidationError 
+                prefix="Email" 
+                field="email"
+                errors={state.errors}
               />
             </FormGroup>
 
@@ -424,12 +490,37 @@ const Contact = () => {
 
             <SubmitButton
               type="submit"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              disabled={state.submitting || state.succeeded}
+              whileHover={{ scale: state.submitting || state.succeeded ? 1 : 1.05 }}
+              whileTap={{ scale: state.submitting || state.succeeded ? 1 : 0.95 }}
+              style={{
+                opacity: state.submitting || state.succeeded ? 0.8 : 1,
+                cursor: state.submitting || state.succeeded ? 'not-allowed' : 'pointer'
+              }}
             >
-              <FaPaperPlane />
-              Send Message
+              {state.submitting ? (
+                <>
+                  <span className="spinner" />
+                  Sending...
+                </>
+              ) : state.succeeded ? (
+                <>
+                  <FaCheckCircle />
+                  Message Sent!
+                </>
+              ) : (
+                <>
+                  <FaPaperPlane />
+                  Send Message
+                </>
+              )}
             </SubmitButton>
+            {state.errors && state.errors.length > 0 && (
+              <ErrorText>
+                <FaExclamationCircle />
+                Oops! There was an error sending your message. Please try again.
+              </ErrorText>
+            )}
           </ContactForm>
         </ContactGrid>
 
