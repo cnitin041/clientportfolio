@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/mehul-joshi-portfolio/static/css/main.af65b19c.css",
+    "main.js": "/mehul-joshi-portfolio/static/js/main.a377ed35.js",
+    "static/media/mehul.avif": "/mehul-joshi-portfolio/static/media/mehul.55a2f4c306d1cf824d18.avif",
+    "index.html": "/mehul-joshi-portfolio/index.html",
+    "static/media/houdini.svg": "/mehul-joshi-portfolio/static/media/houdini.bb107f7667ed9e3fc01a77bf3dba9979.svg",
+    "static/media/attols.svg": "/mehul-joshi-portfolio/static/media/attols.fad9988b71b8487b107ff18e8c4e0db4.svg",
+    "main.af65b19c.css.map": "/mehul-joshi-portfolio/static/css/main.af65b19c.css.map",
+    "main.a377ed35.js.map": "/mehul-joshi-portfolio/static/js/main.a377ed35.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.af65b19c.css",
+    "static/js/main.a377ed35.js"
+  ]
+}
