@@ -1,11 +1,15 @@
 {
   "name": "mehul-joshi-portfolio",
   "version": "1.0.0",
+  "homepage": "https://mehuljoshi.github.io/mehul-joshi-portfolio/",
   "description": "Modern React Portfolio for Mehul Joshi",
   "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "node -e \"const fs=require('fs');fs.copyFileSync('build/index.html','build/404.html')\"",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -22,6 +26,9 @@
     "react-router-dom": "^6.22.2",
     "react-scripts": "5.0.1",
     "styled-components": "^6.0.8"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.0.0"
   },
   "browserslist": {
     "production": [
