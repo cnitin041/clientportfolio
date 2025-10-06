@@ -17,7 +17,23 @@ export const loadAllShowcase = () => {
     const raw = data.default ?? data;
     return raw;
   });
-  return items;
+  // Ensure unique slugs to avoid React key collisions
+  const seen = new Set();
+  const unique = [];
+  for (const it of items) {
+    if (seen.has(it.slug)) {
+      if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV !== 'production') {
+        // eslint-disable-next-line no-console
+        console.warn(`[showcaseLoader] Duplicate slug encountered and skipped: ${it.slug}`);
+      }
+      continue;
+    }
+    seen.add(it.slug);
+    unique.push(it);
+  }
+  // Stable ordering (optional): by title asc within category
+  unique.sort((a, b) => (a.category || '').localeCompare(b.category || '') || (a.title || '').localeCompare(b.title || ''));
+  return unique;
 };
 
 export const byCategory = (category) => loadAllShowcase().filter(i => i.category === category);

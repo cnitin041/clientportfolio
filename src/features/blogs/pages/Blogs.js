@@ -24,23 +24,7 @@ const ChipsBar = styled.div`
   gap: 10px;
 `;
 
-const Tabs = styled.div`
-  max-width: 1320px;
-  margin: 0.75rem auto 0.75rem;
-  display: flex;
-  gap: 10px;
-`;
-
-const Tab = styled.button`
-  appearance: none;
-  border: 1px solid rgba(0,0,0,0.1);
-  background: ${p => (p.$active ? '#111' : '#fff')};
-  color: ${p => (p.$active ? '#fff' : '#222')};
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-weight: 600;
-  cursor: pointer;
-`;
+/* Removed hardcoded Tabs/Tab; using dynamic ChipsBar below */
 
 const Chip = styled.button`
   appearance: none;
@@ -141,12 +125,7 @@ const Blogs = () => {
         title="Blog"
         subtitle="Thoughts on Houdini tools, product design, and modern web development."
       />
-      {/* Primary tabs */}
-      <Tabs>
-        {['All','Houdini','Python','AI'].map(t => (
-          <Tab key={t} $active={category===t} onClick={()=>setCategory(t)}>{t}</Tab>
-        ))}
-      </Tabs>
+      {/* Primary tabs removed; using ChipsBar based on actual categories */}
       <ChipsBar>
         {categories.map(cat => (
           <Chip key={cat} $active={cat === category} onClick={() => setCategory(cat)}>{cat}</Chip>

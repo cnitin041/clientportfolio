@@ -60,7 +60,8 @@ a {
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 
-a:hover { color: #000; border-bottom-color: rgba(0,0,0,0.2); }
+/* Do not force global link color on hover to avoid breaking button-like anchors */
+a:hover { border-bottom-color: rgba(0,0,0,0.2); }
 
 section { padding-top: 4rem; padding-bottom: 4rem; }
 

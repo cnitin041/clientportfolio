@@ -8,7 +8,9 @@ import Home from './pages/Home';
 import Resume from 'features/resume/pages/Resume';
 import Tools from 'features/tools/pages/Tools';
 import HoudiniTools from 'features/tools/pages/HoudiniTools';
+import HoudiniToolDetail from 'features/tools/pages/HoudiniToolDetail';
 import StandaloneTools from 'features/tools/pages/StandaloneTools';
+import StandaloneToolDetail from 'features/tools/pages/StandaloneToolDetail';
 import ContactPage from 'features/contact/pages/ContactPage';
 import Blogs from 'features/blogs/pages/Blogs';
 import BlogDetail from 'features/blogs/pages/BlogDetail';
@@ -43,7 +45,9 @@ function App() {
             <Route path="/showcase/:slug" element={<ShowcaseDetail />} />
             <Route path="/tools" element={<Tools />} />
             <Route path="/tools/houdini" element={<HoudiniTools />} />
+            <Route path="/tools/houdini/:slug" element={<HoudiniToolDetail />} />
             <Route path="/tools/standalone" element={<StandaloneTools />} />
+            <Route path="/tools/standalone/:slug" element={<StandaloneToolDetail />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/blogs/:slug" element={<BlogDetail />} />

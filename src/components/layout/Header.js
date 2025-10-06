@@ -45,7 +45,7 @@ const Nav = styled.nav`
   margin: 0 auto;
 `;
 
-const Logo = styled(motion.div)`
+const Logo = styled(motion(Link))`
   font-size: 1.5rem;
   font-weight: 700;
   color: #222;
@@ -290,7 +290,6 @@ const Header = () => {
       <Nav>
         <Logo
           whileHover={{ scale: 1.05 }}
-          as={Link}
           to="/"
           onClick={closeMenu}
         >

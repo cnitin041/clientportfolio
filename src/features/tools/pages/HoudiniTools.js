@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PageHero from 'components/layout/PageHero';
 import { Link } from 'react-router-dom';
+import { houdiniTools } from 'features/tools/data/houdini';
 
 const Page = styled.main`
   padding: 0 2rem 4rem; /* PageHero manages header offset */
@@ -78,29 +79,19 @@ const HoudiniTools = () => {
         <Title>Highlights</Title>
         <Paragraph>Showcase of custom tools and utilities for Houdini. Click a card to learn more.</Paragraph>
         <Grid>
-          <Card to="#">
-            <Thumb src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop" alt="Material Switcher" />
-            <CardBody>
-              <strong>Material Switcher</strong>
-              <Blurb>Quickly toggle material setups for heavy vegetation scenes. Promote common settings, batch-apply variants, and preview changes non-destructively.</Blurb>
-              <ShareRow>
-                <a href="#" title="Share on LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0 8h5v16H0zM8 8h4.8v2.2h.07c.67-1.2 2.3-2.46 4.74-2.46C21.5 7.74 24 10 24 14.3V24h-5v-8.5c0-2.03-.04-4.64-2.83-4.64-2.83 0-3.26 2.21-3.26 4.49V24H8z"/></svg></a>
-                <a href="#" title="Share on X" aria-label="X / Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21l-6.53 7.46L22 22h-6.62l-4.33-5.66L5.82 22H3l6.89-7.87L2 2h6.74l3.9 5.2L18.24 2zm-2.32 18h1.28L8.15 4H6.88l9.04 16z"/></svg></a>
-              </ShareRow>
-            </CardBody>
-          </Card>
-
-          <Card to="#">
-            <Thumb src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop" alt="Resource Monitor" />
-            <CardBody>
-              <strong>Resource Monitor Tool</strong>
-              <Blurb>Track and visualize performance during simulations. Lightweight profiling with CSV export and timeline overlays for quick diagnosis.</Blurb>
-              <ShareRow>
-                <a href="#" title="Share on LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0 8h5v16H0zM8 8h4.8v2.2h.07c.67-1.2 2.3-2.46 4.74-2.46C21.5 7.74 24 10 24 14.3V24h-5v-8.5c0-2.03-.04-4.64-2.83-4.64-2.83 0-3.26 2.21-3.26 4.49V24H8z"/></svg></a>
-                <a href="#" title="Share on X" aria-label="X / Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21l-6.53 7.46L22 22h-6.62l-4.33-5.66L5.82 22H3l6.89-7.87L2 2h6.74l3.9 5.2L18.24 2zm-2.32 18h1.28L8.15 4H6.88l9.04 16z"/></svg></a>
-              </ShareRow>
-            </CardBody>
-          </Card>
+          {houdiniTools.map((t) => (
+            <Card key={t.slug} to={`/tools/houdini/${t.slug}`}>
+              <Thumb src={t.image} alt={t.title} />
+              <CardBody>
+                <strong>{t.title}</strong>
+                <Blurb>{t.blurb || t.excerpt}</Blurb>
+                <ShareRow>
+                  <a href="#" title="Share on LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0 8h5v16H0zM8 8h4.8v2.2h.07c.67-1.2 2.3-2.46 4.74-2.46C21.5 7.74 24 10 24 14.3V24h-5v-8.5c0-2.03-.04-4.64-2.83-4.64-2.83 0-3.26 2.21-3.26 4.49V24H8z"/></svg></a>
+                  <a href="#" title="Share on X" aria-label="X / Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21l-6.53 7.46L22 22h-6.62l-4.33-5.66L5.82 22H3l6.89-7.87L2 2h6.74l3.9 5.2L18.24 2zm-2.32 18h1.28L8.15 4H6.88l9.04 16z"/></svg></a>
+                </ShareRow>
+              </CardBody>
+            </Card>
+          ))}
         </Grid>
       </Container>
     </Page>

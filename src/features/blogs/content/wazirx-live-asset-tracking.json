@@ -1,0 +1,27 @@
+{
+  "slug": "wazirx-live-asset-tracking",
+  "title": "Standalone Tool: Live Asset Tracking of WazirX",
+  "author": "Mehul Joshi",
+  "date": "2022-09-25",
+  "read": "2 min read",
+  "category": "Standalone",
+  "tags": ["python", "standalone tools"],
+  "image": "wazirx.avif",
+  "excerpt": "A PyQt/Python tool that uses WazirX public API to track live asset performance, average buy price, and P&L across holdings.",
+  "content": [
+    { "type": "p", "text": "Long time back I spoke to one of the management member of wazirX on clubhouse where I suggested to them some very basic common features for their website which can be helpful for traders just like every single trading platform is offering." },
+    { "type": "p", "text": "If you are a crypto trader or investor and ever used wazirX you will see there are some limitation in current UI of wazirX which doesn't show you much details about your investments. whether it's a average buy price if you have placed multiple orders or sort of a holding page which can give you an overview of your assets holding just like any other platform which includes average value, overall profit and loss or total amount of investment." },
+    { "type": "p", "text": "As I am a diversified investor in all different trading platforms. I was expecting the same common feature in this platform but unfortunately this was never addressed. Even after 1 year they have not taken those suggestions into consideration yet." },
+    { "type": "p", "text": "So here I am to represent this tool which I have written long back and now I can share with you all. This tool is based on pyqt & python framework which uses wazirX public api." },
+    { "type": "p", "text": "Let's have a view of this tool. All you need to do is click on blue section which expands and show new section and fill your buy or sell order entries which are completed. As soon as you are done with your entries click on update and then click on `Go Live`  now this will work on real-time queries based on market value and gives you all the details about average price, your Profit and loss based on each coin." },
+    { "type": "img", "src": "wazirx.avif", "alt": "WazirX live asset tracking tool UI", "caption": "Standalone tool UI for live tracking on WazirX" },
+    { "type": "p", "text": "In the bottom section you will see the overall investment overview which has 3 columns: total invested amount based on your order entries, current value of all the investments and in last section overall profit and loss of the entire investment. Isn't it great to have this feature in on wazirX itself but till they implement you can use this tool." },
+    { "type": "p", "text": "Stay tuned and subscribe to the website to get future newsletter directly delivered to your mailbox." },
+    { "type": "buttons", "items": [
+      { "label": "Download - Windows 10/11", "href": "#", "variant": "primary" },
+      { "label": "Download for Linux ( Coming Soon )", "href": "#", "variant": "secondary", "disabled": true }
+    ] },
+    { "type": "embed", "url": "https://www.youtube.com/watch?v=VIDEO_ID", "title": "Live Asset Tracking - Demo", "caption": "Video walkthrough of the tool (replace VIDEO_ID with your YouTube id)" },
+    { "type": "p", "text": "Updated: Sep 26, 2022" }
+  ]
+}

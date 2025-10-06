@@ -219,7 +219,7 @@ const FilmCard = ({ film: f, index: i, onOpen }) => {
       <Poster style={{ backgroundImage: `url(${f.image})`, backgroundPosition: 'center' }} />
       <Body>
         <Title>{f.title}</Title>
-        <Meta>{f.role} • {f.studio} • {f.year}</Meta>
+        <Meta>{f.role} • {f.studio}{f.year ? ` • ${f.year}` : ''}</Meta>
         {Array.isArray(f.tags) && f.tags.length>0 && (
           <Chips>
             {f.tags.map((t, idx) => <Chip key={idx}>#{t}</Chip>)}
@@ -236,33 +236,14 @@ const FilmCard = ({ film: f, index: i, onOpen }) => {
 };
 
 const Filmography = () => {
-  const [tag, setTag] = useState('All');
-  const [year, setYear] = useState('All');
   const [active, setActive] = useState(null);
-
-  const tags = useMemo(() => ['All', ...Array.from(new Set(films.flatMap(f => f.tags || [])))], []);
-  const years = useMemo(() => ['All', ...Array.from(new Set(films.map(f => f.year))).sort((a,b)=>b-a)], []);
-  const list = useMemo(() => films.filter(f => (tag==='All' || (f.tags||[]).includes(tag)) && (year==='All' || f.year===year)), [tag, year]);
+  const list = useMemo(() => films, []);
 
   return (
     <Page>
       <Vignette aria-hidden />
       <Grain aria-hidden />
       <PageHero title="Filmography" subtitle="Selected film credits" />
-      <FiltersWrap>
-        <FiltersRow>
-          <RowTitle>Tags:</RowTitle>
-          {tags.map(t => (
-            <FilterBtn key={t} $active={t===tag} onClick={()=>setTag(t)}>{t}</FilterBtn>
-          ))}
-        </FiltersRow>
-        <FiltersRow>
-          <RowTitle>Year:</RowTitle>
-          {years.map(y => (
-            <FilterBtn key={y} $active={y===year} onClick={()=>setYear(y)}>{y}</FilterBtn>
-          ))}
-        </FiltersRow>
-      </FiltersWrap>
       <Container>
         <Grid>
           {list.map((f, i) => (

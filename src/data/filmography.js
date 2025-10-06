@@ -1,113 +1,261 @@
 // Demo filmography data. Add more items or fields as needed.
-export const films = [
+// Resolve image paths so local files in src/assets/images/Filmography can be referenced by filename or path.
+const imagesContext = require.context(
+  '../assets/images/Filmography',
+  false,
+  /\.(png|jpe?g|gif|webp|svg|avif)$/
+);
+
+const resolveImage = (img) => {
+  if (typeof img !== 'string' || !img) return img;
+  if (/^(https?:)?\/\//i.test(img) || img.startsWith('/') || /^data:/i.test(img)) return img; // external/absolute/data
+  // normalize slashes and strip leading src/
+  let p = img.replace(/\\/g, '/');
+  if (p.startsWith('src/')) p = p.slice(4);
+  // take only the filename; context is non-recursive
+  const parts = p.split('/');
+  const filename = parts[parts.length - 1];
+  try {
+    const mod = imagesContext(`./${filename}`);
+    return mod.default ?? mod;
+  } catch (e) {
+    return img; // fallback to original string if not found
+  }
+};
+
+const PLACEHOLDER = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800"><rect width="100%" height="100%" fill="%23f2f2f2"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23999" font-family="Arial" font-size="42">No Image</text></svg>';
+
+const rawFilms = [
   {
-    id: 'film-rrr',
+    id: 'rrr',
     title: 'RRR',
+    role: 'Pipeline Technical Director',
+    studio: 'ReDefine ( DNeg )',
+    responsibilities: [
+      'Integrating tools with existing pipeline and code base.',
+      'Customizing existing scripted tools to suit the needs of the studio, projects, and artists.',
+      'Providing support for existing Pipeline tools.'
+    ],
+    image: 'rrr.jpeg'
+  },
+  {
+    id: 'obi-wan-kenobi',
+    title: 'OBI WAN KENOBI',
+    role: 'Pipeline Technical Director',
+    studio: 'ReDefine ( DNeg )',
+    responsibilities: [
+      'Integrating tools with existing pipeline and code base.',
+      'Customizing existing scripted tools to suit the needs of the studio, projects, and artists.',
+      'Providing support for existing Pipeline tools.'
+    ],
+    image: 'Obiwan-kenobi.jpg'
+  },
+  {
+    id: 'ambulance',
+    title: 'AMBULANCE',
+    role: 'Pipeline Technical Director',
+    studio: 'ReDefine ( DNeg )',
+    responsibilities: [
+      'Integrating tools with existing pipeline and code base.',
+      'Customizing existing scripted tools to suit the needs of the studio, projects, and artists.',
+      'Providing support for existing Pipeline tools.'
+    ],
+    image: 'ambulance.avif'
+  },
+  {
+    id: 'sweet-girl',
+    title: 'SWEET GIRL',
+    role: 'Pipeline Technical Director',
+    studio: 'ReDefine ( DNeg )',
+    responsibilities: [
+      'Integrating tools with existing pipeline and code base.',
+      'Customizing existing scripted tools to suit the needs of the studio, projects, and artists.',
+      'Providing support for existing Pipeline tools.'
+    ],
+    image: 'sweetgirl.webp'
+  },
+  {
+    id: 'mimi',
+    title: 'MIMI',
+    role: 'Pipeline Technical Director',
+    studio: 'ReDefine ( DNeg )',
+    responsibilities: [
+      'Integrating tools with existing pipeline and code base.',
+      'Customizing existing scripted tools to suit the needs of the studio, projects, and artists.',
+      'Providing support for existing Pipeline tools.'
+    ],
+    image: 'mimi.jpg'
+  },
+  {
+    id: 'bell-bottom',
+    title: 'BELL BOTTOM',
+    role: 'Pipeline Technical Director',
+    studio: 'ReDefine ( DNeg )',
+    responsibilities: [
+      'Integrating tools with existing pipeline and code base.',
+      'Customizing existing scripted tools to suit the needs of the studio, projects, and artists.',
+      'Providing support for existing Pipeline tools.'
+    ],
+    image: 'bell-bottom.avif'
+  },
+  {
+    id: 'rock-dog-2',
+    title: 'ROCK DOG 2',
+    role: 'Pipeline Technical Director',
+    studio: 'ReDefine ( DNeg )',
+    responsibilities: [
+      'Integrating tools with existing pipeline and code base.',
+      'Supporting team in FX Setups.',
+      'Customizing existing scripted tools to suit the needs of the studio, projects, and artists.',
+      'Providing support for existing Pipeline tools.'
+    ],
+    image: 'rock-dogs2.jpg'
+  },
+  {
+    id: 'legend-of-hanuman',
+    title: 'LEGEND OF HANUMAN',
+    role: 'Pipeline Technical Director',
+    studio: 'ReDefine ( DNeg )',
+    responsibilities: [
+      'Integrating tools with existing pipeline and code base.',
+      'Customizing existing scripted tools to suit the needs of the studio, projects, and artists.',
+      'Providing support for exitsting Pipeline tools.'
+    ],
+    image: 'legend-of-hanuman.jpg'
+  },
+  {
+    id: 'wolf-100',
+    title: 'WOLF 100% ',
+    role: 'FX Technical Director',
+    studio: 'ReDefine ( DNeg )',
+    responsibilities: [
+      'Character Dispersion & FX.',
+      'Various Type of Character Dispersion Effects.'
+    ],
+    image: PLACEHOLDER
+  },
+  {
+    id: 'monster-zone',
+    title: 'MONSTER ZONE',
+    role: 'FX Technical Director',
+    studio: 'ReDefine ( DNeg )',
+    responsibilities: [
+      'Worked on different type of Character FX.',
+      'Automation of shots using the setup for fast production flow.'
+    ],
+    image: PLACEHOLDER
+  },
+  {
+    id: 'lego-city',
+    title: 'LEGO CITY',
+    role: 'FX Technical Director',
+    studio: 'ReDefine ( DNeg )',
+    responsibilities: [
+      'Building Collapse Dynamics.',
+      'Destruction & Smoke Simulation.'
+    ],
+    image: PLACEHOLDER
+  },
+  {
+    id: 'norm-of-the-north',
+    title: 'NORM OF THE NORTH',
     role: 'FX Artist',
-    studio: 'DVV Entertainments',
-    director: 'S. S. Rajamouli',
-    year: 2022,
-    tags: ['feature', 'fx', 'houdini'],
+    studio: 'Assemblage Entertainment Studio',
     responsibilities: [
-      'Environment dust/embers simulations',
-      'Crowd interaction FX setups',
-      'Explosion shockwave lookdev'
+      'Ocean Simulation.',
+      'Cloud Simulation.',
+      'Birds Feather Simulation.'
     ],
-    image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop'
+    image: PLACEHOLDER
   },
   {
-    id: 'film-brahmastra',
-    title: 'Brahmāstra',
-    role: 'Houdini TD',
-    studio: 'Dharma Productions',
-    director: 'Ayan Mukerji',
-    year: 2022,
-    tags: ['feature', 'magic', 'fx'],
-    responsibilities: [
-      'Energy trail systems using POPs',
-      'Volumes and pyro lookdev',
-      'Lighting handoff caching'
-    ],
-    image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop'
-  },
-  {
-    id: 'film-kgf',
-    title: 'KGF: Chapter 2',
-    role: 'FX LookDev',
-    studio: 'Hombale Films',
-    director: 'Prashanth Neel',
-    year: 2022,
-    tags: ['feature', 'destruction', 'lookdev'],
-    responsibilities: [
-      'Destruction rigging for quarry sequences',
-      'Sparks/metal hits library',
-      'RBD/constraint toolset'
-    ],
-    image: 'https://images.unsplash.com/photo-1517602302552-471fe67acf66?q=80&w=1600&auto=format&fit=crop'
-  },
-  {
-    id: 'film-dangal',
-    title: 'Dangal',
-    role: 'Junior FX Artist',
-    studio: 'Aamir Khan Productions',
-    director: 'Nitesh Tiwari',
-    year: 2016,
-    tags: ['feature', 'dust', 'junior'],
-    responsibilities: [
-      'Dust and chalk simulations',
-      'Stadium atmosphere passes'
-    ],
-    image: 'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?q=80&w=1600&auto=format&fit=crop'
-  },
-  {
-    id: 'film-bahubali',
-    title: 'Baahubali 2',
-    role: 'FX Generalist',
-    studio: 'Arka Media Works',
-    director: 'S. S. Rajamouli',
-    year: 2017,
-    tags: ['feature', 'battle', 'fx'],
-    responsibilities: [
-      'Arrow volleys and debris systems',
-      'River/whitewater sims (assist)'
-    ],
-    image: 'https://images.unsplash.com/photo-1495567720989-cebdbdd97913?q=80&w=1600&auto=format&fit=crop'
-  },
-  {
-    id: 'film-ps1',
-    title: 'Ponniyin Selvan: I',
+    id: 'arctic-justice',
+    title: 'ARCTIC JUSTICE',
     role: 'FX Artist',
-    studio: 'Madras Talkies',
-    director: 'Mani Ratnam',
-    year: 2022,
-    tags: ['feature', 'water', 'fx'],
+    studio: 'Assemblage Entertainment Studio',
     responsibilities: [
-      'Ocean surface displacements',
-      'Rain interactions and splashes'
+      'Water Droplet Simulation.',
+      'Water Puddle Simulation.',
+      'Snow Foot Print.'
     ],
-    image: 'https://images.unsplash.com/photo-1495567720989-cebdbdd97913?q=80&w=1600&auto=format&fit=crop'
+    image: PLACEHOLDER
   },
-  // Additional demo entries
   {
-    id: 'film-vikram',
-    title: 'Vikram',
+    id: 'idgah',
+    title: 'IDGAH',
     role: 'FX Artist',
-    studio: 'Raaj Kamal Films',
-    director: 'Lokesh Kanagaraj',
-    year: 2022,
-    tags: ['feature', 'fx'],
-    responsibilities: ['Muzzle flashes library', 'Blood mist passes', 'Environment fog cards'],
-    image: 'https://images.unsplash.com/photo-1517816428104-797678c7cf0d?q=80&w=1600&auto=format&fit=crop'
+    studio: 'Firefly Creative Studio Ltd.',
+    responsibilities: [
+      'Birds Flocking FX'
+    ],
+    image: PLACEHOLDER
   },
   {
-    id: 'film-pathaan',
-    title: 'Pathaan',
-    role: 'Houdini TD',
-    studio: 'YRF',
-    director: 'Siddharth Anand',
-    year: 2023,
-    tags: ['feature', 'fx', 'action'],
-    responsibilities: ['Snow trails solver', 'Debris pass manager'],
-    image: 'https://images.unsplash.com/photo-1490731727228-8aa5e3f1b3a1?q=80&w=1600&auto=format&fit=crop'
+    id: 'om-namo-venkatesaya',
+    title: 'OM NAMO VENKATESAYA',
+    role: 'FX Artist',
+    studio: 'Firefly Creative Studio Ltd.',
+    responsibilities: [
+      'Character FX',
+      'Creative Dispersion FX'
+    ],
+    image: PLACEHOLDER
+  },
+  {
+    id: 'sarbha',
+    title: 'SARBHA',
+    role: 'FX Artist',
+    studio: 'Firefly Creative Studio Ltd.',
+    responsibilities: [
+      'Character Interactive FX',
+      'Sand Character Interactive FX'
+    ],
+    image: PLACEHOLDER
+  },
+  {
+    id: 'kashmora',
+    title: 'KASHMORA',
+    role: 'FX Artist',
+    studio: 'Firefly Creative Studio Ltd.',
+    responsibilities: [
+      'Ground Dust for War Grounds.',
+      'Character Interactive Dust.'
+    ],
+    image: PLACEHOLDER
+  },
+  {
+    id: 'vanamagan',
+    title: 'VANAMAGAN',
+    role: 'FX Artist',
+    studio: 'Firefly Creative Studio Ltd.',
+    responsibilities: [
+      'Character Interactive Leaf & Dust Simulation.',
+      'Tiger Belly Simulation.'
+    ],
+    image: PLACEHOLDER
+  },
+  {
+    id: 'pulimurugan',
+    title: 'PULIMURGAN',
+    role: 'FX Trainee Artist',
+    studio: 'Firefly Creative Studio Ltd.',
+    responsibilities: [
+      'Character Interactive Leaf & Dust Simulation.'
+    ],
+    image: PLACEHOLDER
+  },
+  {
+    id: 'the-essex-serpent',
+    title: 'THE ESSEX SERPENT',
+    role: 'Pipeline Technical Director',
+    studio: 'ReDefine ( DNeg )',
+    responsibilities: [
+      'Integrating tools with existing pipeline and code base.',
+      'Customizing existing scripted tools to suit the needs of the studio, projects, and artists.',
+      'Providing support for existing Pipeline tools.'
+    ],
+    image: PLACEHOLDER
   }
 ];
+
+export const films = rawFilms.map(f => ({ ...f, image: resolveImage(f.image) }));

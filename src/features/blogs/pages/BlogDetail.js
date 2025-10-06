@@ -68,6 +68,49 @@ const CodeBlock = styled.pre`
   overflow: auto;
 `;
 
+const Figure = styled.figure`
+  margin: 1rem 0;
+`;
+
+const InlineImage = styled.img`
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+`;
+
+const Figcaption = styled.figcaption`
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 6px;
+  text-align: center;
+`;
+
+const InlineVideo = styled.video`
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+`;
+
+const EmbedWrap = styled.div`
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  margin: 1rem 0;
+`;
+
+const ResponsiveIframe = styled.iframe`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+`;
+
 const BackLink = styled(Link)`
   display: inline-block;
   margin: 1rem 0 0.5rem;
@@ -243,6 +286,32 @@ const SubmitBtn = styled.button`
   border-radius: 10px;
   padding: 8px 12px;
   width: fit-content;
+`;
+
+// Inline buttons block
+const ButtonsRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 12px 0 4px;
+`;
+
+const ButtonLink = styled.a`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: 1px solid rgba(0,0,0,0.12);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+  background: ${p => (p.$variant === 'primary' ? '#111' : '#fff')};
+  color: ${p => (p.$variant === 'primary' ? '#fff' : '#111')};
+  pointer-events: ${p => (p.$disabled ? 'none' : 'auto')};
+  opacity: ${p => (p.$disabled ? 0.6 : 1)};
+
+  &:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(0,0,0,0.1); }
 `;
 
 const BlogDetail = () => {
@@ -440,6 +509,77 @@ const BlogDetail = () => {
                 <CodeBlock key={idx} className={`language-${lang}`}>
                   <code className={`language-${lang}`}>{block.text}</code>
                 </CodeBlock>
+              );
+            }
+            if (block.type === 'img') {
+              return (
+                <Figure key={idx}>
+                  <InlineImage src={block.src} alt={block.alt || ''} loading="lazy" />
+                  {block.caption && <Figcaption>{block.caption}</Figcaption>}
+                </Figure>
+              );
+            }
+            if (block.type === 'video') {
+              // Expect block.src to be an absolute path under /public/videos or full URL
+              return (
+                <Figure key={idx}>
+                  <InlineVideo
+                    controls
+                    poster={block.poster}
+                    preload={block.preload || 'metadata'}
+                  >
+                    {block.src && <source src={block.src} type={block.typeHint || 'video/mp4'} />}
+                    Your browser does not support the video tag.
+                  </InlineVideo>
+                  {block.caption && <Figcaption>{block.caption}</Figcaption>}
+                </Figure>
+              );
+            }
+            if (block.type === 'embed') {
+              // YouTube support via block.url (watch or youtu.be) or block.id
+              let url = block.url || '';
+              if (!url && block.id) url = `https://www.youtube.com/embed/${block.id}`;
+              if (url.includes('watch?v=')) {
+                const id = new URL(url, window.location.origin).searchParams.get('v');
+                if (id) url = `https://www.youtube.com/embed/${id}`;
+              }
+              if (url.includes('youtu.be/')) {
+                const id = url.split('youtu.be/')[1].split(/[?&#]/)[0];
+                if (id) url = `https://www.youtube.com/embed/${id}`;
+              }
+              return (
+                <Figure key={idx}>
+                  <EmbedWrap>
+                    <ResponsiveIframe
+                      src={url}
+                      title={block.title || 'YouTube video'}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                    />
+                  </EmbedWrap>
+                  {block.caption && <Figcaption>{block.caption}</Figcaption>}
+                </Figure>
+              );
+            }
+            if (block.type === 'buttons' && Array.isArray(block.items)) {
+              return (
+                <ButtonsRow key={idx}>
+                  {block.items.map((btn, bi) => (
+                    <ButtonLink
+                      key={bi}
+                      href={btn.href || '#'}
+                      target={btn.target || (btn.href && btn.href.startsWith('http') ? '_blank' : undefined)}
+                      rel={btn.target === '_blank' ? 'noreferrer' : undefined}
+                      $variant={btn.variant || 'primary'}
+                      $disabled={btn.disabled}
+                      aria-disabled={btn.disabled ? 'true' : undefined}
+                    >
+                      {btn.label || 'Button'}
+                    </ButtonLink>
+                  ))}
+                </ButtonsRow>
               );
             }
             return null;
