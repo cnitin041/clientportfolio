@@ -1,0 +1,24 @@
+{
+  "slug": "dev-houdini-local-sim",
+  "title": "DEV#1 - Houdini Local Simulation",
+  "category": "Development",
+  "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
+  "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  "subtitle": "Product Developments & Tools Development for Houdini",
+  "description": "A set of Houdini utilities that enable quick local iterations on complex simulations. Focused on caching, dependency tracking, and reproducible results.",
+  "technologies": ["Houdini", "Python", "PDG", "OpenCL"],
+  "content": [
+    "This development sprint introduced a lightweight job runner to orchestrate local simulation steps with reliable caching and resuming.",
+    "It integrates with PDG where possible, and falls back to a Python-based queue for single-machine workflows.",
+    "Key outcome: reduced iteration time by ~40% on typical FX shots."
+  ],
+  "credits": [
+    "FX TD: Mehul Joshi",
+    "Tools Engineering: Mehul Joshi"
+  ],
+  "gallery": [
+    "https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "building-houdini-tools",
+  "title": "Building Efficient Houdini Tools",
+  "author": "Mehul Joshi",
+  "date": "2025-09-10",
+  "read": "5 min read",
+  "category": "Houdini",
+  "tags": ["houdini", "python", "pipeline"],
+  "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1400&auto=format&fit=crop",
+  "excerpt": "Design principles and workflows I use to craft reliable nodes and utilities for Houdini.",
+  "content": [
+    { "type": "p", "text": "Houdini tools should be predictable, composable, and fast to iterate on. This post shares guidelines I follow when shipping production tools." },
+    { "type": "code", "language": "python", "text": "# Example: simple parameter promotion\nnode = hou.pwd()\nparm = node.parm(&quot;iterations&quot;)\nif parm is not None:\n    hou.ui.displayMessage(f&quot;Iterations: {parm.eval()}&quot;)" },
+    { "type": "p", "text": "Prefer small, well-named HDAs over monoliths. Document inputs/outputs inline and ship test scenes." }
+  ]
+}

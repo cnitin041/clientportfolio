@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import PageHero from '../components/PageHero';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { loadAllShowcase } from '../utils/showcaseLoader';
 
 const Page = styled.main`
   padding: 0 2rem 4rem; /* PageHero already handles header offset */
@@ -10,6 +12,23 @@ const Page = styled.main`
 const Container = styled.div`
   max-width: 1400px;
   margin: 0 auto;
+`;
+
+const Section = styled.section`
+  margin: 2.5rem 0 2rem;
+`;
+
+const SectionTitle = styled.h2`
+  text-align: center;
+  font-size: 2.25rem;
+  letter-spacing: 1px;
+  margin: 1rem 0 0.25rem;
+`;
+
+const SectionSub = styled.p`
+  text-align: center;
+  color: #777;
+  margin: 0 0 1.25rem;
 `;
 
 const Grid = styled.div`
@@ -25,7 +44,7 @@ const Grid = styled.div`
   }
 `;
 
-const Card = styled(motion.div)`
+const Card = styled(motion(Link))`
   background: #fff;
   border: 1px solid rgba(0,0,0,0.06);
   border-radius: 16px;
@@ -35,6 +54,8 @@ const Card = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  color: inherit;
+  text-decoration: none;
 
   &:hover {
     transform: translateY(-4px);
@@ -62,38 +83,44 @@ const Desc = styled.p`
   color: #555;
 `;
 
-const projects = [
-  {
-    title: 'Portfolio Redesign',
-    desc: 'Clean, performant React-based portfolio UI with animations.',
-    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop'
-  },
-  {
-    title: 'Houdini Toolkit',
-    desc: 'A set of custom nodes and workflow tools for artists.',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop'
-  },
-  {
-    title: 'Standalone Utilities',
-    desc: 'Desktop helpers for automation and productivity.',
-    image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop'
-  }
-];
-
 const Showcase = () => {
+  const items = useMemo(() => loadAllShowcase(), []);
+  const sections = [
+    { key: 'Development', title: 'DEVELOPMENT', sub: 'Product Developments & Tools Development for Houdini' },
+    { key: 'Showreel', title: 'SHOWREEL', sub: 'Some live action and CG film work' },
+    { key: "Houdini RND's", title: "HOUDINI RND'S", sub: 'R&Ds done in free time.' }
+  ];
   return (
     <Page>
       <PageHero title="Showcase" subtitle="Selected projects and highlights" />
       <Container>
-        <Grid>
-          {projects.map((p, i) => (
-            <Card key={p.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.05 }}>
-              <Thumb style={{ backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0)), url(${p.image})` }} />
-              <Title>{p.title}</Title>
-              <Desc>{p.desc}</Desc>
-            </Card>
-          ))}
-        </Grid>
+        {sections.map((sec, sidx) => {
+          const list = items.filter(i => i.category === sec.key);
+          if (list.length === 0) return null;
+          return (
+            <Section key={sec.key}>
+              <SectionTitle>{sec.title}</SectionTitle>
+              {sec.sub && <SectionSub>{sec.sub}</SectionSub>}
+              <Grid>
+                {list.map((p, i) => (
+                  <Card
+                    key={p.slug}
+                    to={`/showcase/${p.slug}`}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.35, delay: i * 0.05 }}
+                    aria-label={p.title}
+                  >
+                    <Thumb style={{ backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0)), url(${p.image})` }} />
+                    <Title>{p.title}</Title>
+                    {p.subtitle && <Desc>{p.subtitle}</Desc>}
+                  </Card>
+                ))}
+              </Grid>
+            </Section>
+          );
+        })}
       </Container>
     </Page>
   );

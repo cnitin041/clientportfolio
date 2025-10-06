@@ -14,11 +14,18 @@ import Blogs from './pages/Blogs';
 import BlogDetail from './pages/BlogDetail';
 import Filmography from './pages/Filmography';
 import Showcase from './pages/Showcase';
+import ShowcaseDetail from './pages/ShowcaseDetail';
 
 const AppContainer = styled.div`
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background: transparent; /* allow global background to show through */
   color: #222;
+`;
+
+const Content = styled.div`
+  flex: 1 0 auto; /* fill remaining height to push footer down */
 `;
 
 function App() {
@@ -28,18 +35,21 @@ function App() {
       <PageBackground />
       <AppContainer>
         <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/resume" element={<Resume />} />
-          <Route path="/showcase" element={<Showcase />} />
-          <Route path="/tools" element={<Tools />} />
-          <Route path="/tools/houdini" element={<HoudiniTools />} />
-          <Route path="/tools/standalone" element={<StandaloneTools />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/blogs/:slug" element={<BlogDetail />} />
-          <Route path="/filmography" element={<Filmography />} />
-        </Routes>
+        <Content>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/resume" element={<Resume />} />
+            <Route path="/showcase" element={<Showcase />} />
+            <Route path="/showcase/:slug" element={<ShowcaseDetail />} />
+            <Route path="/tools" element={<Tools />} />
+            <Route path="/tools/houdini" element={<HoudiniTools />} />
+            <Route path="/tools/standalone" element={<StandaloneTools />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blogs/:slug" element={<BlogDetail />} />
+            <Route path="/filmography" element={<Filmography />} />
+          </Routes>
+        </Content>
         <Footer />
       </AppContainer>
     </BrowserRouter>
