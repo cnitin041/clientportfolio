@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import PageHero from '../../components/PageHero';
+import PageHero from 'components/layout/PageHero';
 import { Link } from 'react-router-dom';
 
 const Page = styled.main`

@@ -25,8 +25,8 @@ export const unescapeHtml = (str) => {
     .replaceAll('&#x27;', "'");
 };
 
-// Load all JSON files in src/blogs
-const context = require.context('../blogs', false, /\.json$/);
+// Load all JSON files in feature content directory
+const context = require.context('../content', false, /\.json$/);
 
 export const loadAllBlogs = () => {
   const items = context.keys().map((key) => {

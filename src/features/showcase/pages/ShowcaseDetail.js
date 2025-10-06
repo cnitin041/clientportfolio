@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useParams, Link } from 'react-router-dom';
-import PageHero from '../components/PageHero';
-import { getShowcaseBySlug } from '../utils/showcaseLoader';
+import PageHero from 'components/layout/PageHero';
+import { getShowcaseBySlug } from 'features/showcase/lib/showcaseLoader';
 
 const Page = styled.main`
   padding: 0 2rem 4rem; /* header offset handled in PageHero */

@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import PageHero from '../components/PageHero';
+import PageHero from 'components/layout/PageHero';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { loadAllShowcase } from '../utils/showcaseLoader';
+import { loadAllShowcase } from 'features/showcase/lib/showcaseLoader';
 
 const Page = styled.main`
   padding: 0 2rem 4rem; /* PageHero already handles header offset */

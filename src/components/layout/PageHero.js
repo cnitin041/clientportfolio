@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import Particles from './Particles';
+import Particles from '../Particles';
 
 const Wrapper = styled.section`
   padding: ${props => (props.$offset ?? 120)}px 2rem 40px; /* offset for fixed header */

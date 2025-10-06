@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import PageHero from '../components/PageHero';
-import Experience from '../components/Experience';
-import Education from '../components/Education';
+import PageHero from 'components/layout/PageHero';
+import Experience from 'components/Experience';
+import Education from 'components/Education';
 
 const Page = styled.main`
   padding-top: 80px; /* space for fixed header */

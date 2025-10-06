@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion';
-import PageHero from '../components/PageHero';
-import { films } from '../data/filmography';
+import PageHero from 'components/layout/PageHero';
+import { films } from 'data/filmography';
 
 const Page = styled.main`
   padding: 0 2rem 4rem;

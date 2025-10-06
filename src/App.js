@@ -1,20 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import PageBackground from './components/PageBackground';
+import Header from 'components/layout/Header';
+import Footer from 'components/layout/Footer';
+import PageBackground from 'components/layout/PageBackground';
 import Home from './pages/Home';
-import Resume from './pages/Resume';
-import Tools from './pages/Tools';
-import HoudiniTools from './pages/tools/HoudiniTools';
-import StandaloneTools from './pages/tools/StandaloneTools';
-import ContactPage from './pages/ContactPage';
-import Blogs from './pages/Blogs';
-import BlogDetail from './pages/BlogDetail';
-import Filmography from './pages/Filmography';
-import Showcase from './pages/Showcase';
-import ShowcaseDetail from './pages/ShowcaseDetail';
+import Resume from 'features/resume/pages/Resume';
+import Tools from 'features/tools/pages/Tools';
+import HoudiniTools from 'features/tools/pages/HoudiniTools';
+import StandaloneTools from 'features/tools/pages/StandaloneTools';
+import ContactPage from 'features/contact/pages/ContactPage';
+import Blogs from 'features/blogs/pages/Blogs';
+import BlogDetail from 'features/blogs/pages/BlogDetail';
+import Filmography from 'features/filmography/pages/Filmography';
+import Showcase from 'features/showcase/pages/Showcase';
+import ShowcaseDetail from 'features/showcase/pages/ShowcaseDetail';
 
 const AppContainer = styled.div`
   min-height: 100vh;

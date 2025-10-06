@@ -9,7 +9,7 @@
 //   "subtitle": "Product Developments & Tools Development for Houdini" // optional per-item subtitle
 // }
 
-const context = require.context('../showcase', false, /\.json$/);
+const context = require.context('../content', false, /\.json$/);
 
 export const loadAllShowcase = () => {
   const items = context.keys().map((key) => {

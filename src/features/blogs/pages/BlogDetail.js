@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { useParams, Link } from 'react-router-dom';
-import { getBlogBySlug, loadAllBlogs } from '../utils/blogLoader';
-import PageHero from '../components/PageHero';
+import { getBlogBySlug, loadAllBlogs } from 'features/blogs/lib/blogLoader';
+import PageHero from 'components/layout/PageHero';
 
 const Page = styled.main`
   padding: 90px 2rem 4rem; /* account for fixed header */

@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import PageHero from '../components/PageHero';
-import AttolsLogo from '../assets/logos/attols.svg';
-import HoudiniLogo from '../assets/logos/houdini.svg';
+import PageHero from 'components/layout/PageHero';
+import AttolsLogo from 'assets/logos/attols.svg';
+import HoudiniLogo from 'assets/logos/houdini.svg';
 
 const Page = styled.main`
   padding: 0 2rem 4rem; /* PageHero already handles header offset */

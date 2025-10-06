@@ -2,8 +2,8 @@ import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { loadAllBlogs } from '../utils/blogLoader';
-import PageHero from '../components/PageHero';
+import { loadAllBlogs } from 'features/blogs/lib/blogLoader';
+import PageHero from 'components/layout/PageHero';
 
 const Page = styled.main`
   padding: 0 2rem 4rem; /* header offset handled by Header */
