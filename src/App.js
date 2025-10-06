@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
 import PageBackground from 'components/layout/PageBackground';
@@ -30,7 +30,7 @@ const Content = styled.div`
 
 function App() {
   return (
-    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <BrowserRouter basename={process.env.PUBLIC_URL} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       {/* Global parallax background behind all pages */}
       <PageBackground />
       <AppContainer>
@@ -48,6 +48,7 @@ function App() {
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/blogs/:slug" element={<BlogDetail />} />
             <Route path="/filmography" element={<Filmography />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Content>
         <Footer />
