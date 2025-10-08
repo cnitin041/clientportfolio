@@ -34,7 +34,6 @@ const Footer = () => {
     <Wrapper role="contentinfo">
       <Container>
         <Small>© {new Date().getFullYear()} Mehul Joshi</Small>
-        <Small>Built with React</Small>
       </Container>
     </Wrapper>
   );
