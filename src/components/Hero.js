@@ -10,7 +10,7 @@ const HeroSection = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 2rem clamp(12px, 1.5vw, 24px);
   position: relative;
   overflow: hidden;
 `;
@@ -18,7 +18,7 @@ const HeroSection = styled.section`
 const HeroContainer = styled.div`
   max-width: 1320px;
   margin: 0 auto;
-  padding: 0 2rem; /* keep centered with page gutters */
+  padding: 0 clamp(12px, 1.5vw, 24px); /* keep centered with page gutters */
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); /* slight balance for visual center */
   gap: 4rem;

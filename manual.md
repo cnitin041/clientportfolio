@@ -237,3 +237,149 @@ Example entry:
 
 - **Development**: `npm start` (URL: `http://localhost:3000/clientportfolio`)
 - **Production build**: `npm run build`
+
+---
+
+## Using Layout Components
+
+- **Header**: `src/components/layout/Header.js`
+  - Top navigation. To add a new top-level link, add a `NavLink` in the `NavLinks` block.
+  - For a section with subpages (like Tools), use the existing dropdown pattern: wrap with `Dropdown` and add `DropdownItem` links.
+  - Tools subnav chips appear when the URL starts with `/tools`. Update those links if you add new tools sections.
+
+- **PageHero**: `src/components/layout/PageHero.js`
+  - Standard page banner with title and subtitle.
+  - Many pages pass `topOffset` to account for fixed header + subnav heights. Use `topOffset={176}` on tools pages.
+
+- **Footer**: `src/components/layout/Footer.js`
+  - Global footer rendered in `App.js`. Minimal and safe to extend.
+
+- **Page gutters and containers**
+  - Most pages use `Page` styled components with horizontal padding: `padding: 0 clamp(12px, 1.5vw, 24px) 4rem;` for consistent gutters on large screens.
+  - Use a `Container` inside pages with `max-width` (commonly `1320px` or `1000px`) and `margin: 0 auto` to center content.
+
+---
+
+## Create a New Page
+
+1. Create a file under a feature (or a new folder) e.g. `src/features/awesome/pages/Awesome.js`:
+
+```js
+import React from 'react';
+import styled from 'styled-components';
+import PageHero from 'components/layout/PageHero';
+
+const Page = styled.main`
+  padding: 0 clamp(12px, 1.5vw, 24px) 4rem;
+`;
+
+const Container = styled.div`
+  max-width: 1320px;
+  margin: 0 auto;
+`;
+
+export default function Awesome() {
+  return (
+    <Page>
+      <PageHero title="Awesome" subtitle="My new page" />
+      <Container>
+        {/* content here */}
+      </Container>
+    </Page>
+  );
+}
+```
+
+2. Register the route in `src/App.js`:
+
+```jsx
+import Awesome from 'features/awesome/pages/Awesome';
+// ...
+<Route path="/awesome" element={<Awesome />} />
+```
+
+3. Add a menu item (optional) in `src/components/layout/Header.js`:
+
+```jsx
+<NavLink whileHover={{ scale: 1.05 }} to="/awesome" onClick={closeMenu}>
+  Awesome
+</NavLink>
+```
+
+---
+
+## Create a New Feature Module (List + Detail)
+
+- Directory structure suggestion:
+
+```
+src/features/myfeature/
+  content/           # JSON or data for list/detail
+  data/              # JS exports if not using JSON
+  lib/               # loaders/resolvers
+  pages/
+    MyFeature.js     # list page
+    MyFeatureDetail.js
+```
+
+- Loader pattern (see `blogs/lib/blogLoader.js` and `showcase/lib/showcaseLoader.js`):
+  - Read all JSON files from a folder.
+  - Normalize fields (resolve images, dedupe by `slug`).
+  - Export `loadAllX()` and `getXBySlug(slug)` helpers.
+
+- Routing (in `src/App.js`):
+
+```jsx
+<Route path="/myfeature" element={<MyFeature />} />
+<Route path="/myfeature/:slug" element={<MyFeatureDetail />} />
+```
+
+- Menu (in `Header.js`):
+  - Add a top-level `NavLink` for the list page.
+  - If you need a submenu, reuse the `Dropdown` + `DropdownItem` pattern from Tools.
+
+---
+
+## Add a New Tools Subsection (Example)
+
+1. Create a list page under `src/features/tools/pages/NewSectionTools.js` and (optionally) a detail page.
+2. Add data to `src/features/tools/data/newsection.js`.
+3. Register routes in `src/App.js`:
+
+```jsx
+<Route path="/tools/newsection" element={<NewSectionTools />} />
+<Route path="/tools/newsection/:slug" element={<NewSectionToolDetail />} />
+```
+
+4. Update the Tools dropdown and subnav in `Header.js`:
+
+```jsx
+<DropdownItem to="/tools/newsection">New Section</DropdownItem>
+// and in the SubNav (visible on /tools/*):
+<Link to="/tools/newsection">New Section</Link>
+```
+
+5. On tools pages where `PageHero` is used with the subnav, pass `topOffset={176}` if needed.
+
+---
+
+## Reuse Patterns and Components
+
+- **Cards and grids**: Copy grid/card patterns from `Blogs.js`, `Showcase.js`, or tools pages.
+- **Detail pages**: See `ShowcaseDetail.js`, `StandaloneToolDetail.js`, and `HoudiniToolDetail.js` for structure and styling.
+- **Share buttons**: Keep share `<a>` elements outside primary navigation links to avoid nested anchors.
+- **Accessibility**: Provide `aria-label` on icon-only links and use `aria-current="page"` for active nav items.
+
+---
+
+## Adding Assets
+
+- Images for features should go under `src/assets/images/<Feature>/` whenever loaders resolve by filename.
+- Public videos should go in `public/videos/` and be referenced by absolute path like `/videos/name.mp4`.
+
+---
+
+## Deployment notes
+
+- The app uses `BrowserRouter` with `basename={process.env.PUBLIC_URL}`; make sure deployment serves the app under the correct base path.
+- Use `npm run build` and deploy the `build/` folder to static hosting.

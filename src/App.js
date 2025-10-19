@@ -17,6 +17,7 @@ import BlogDetail from 'features/blogs/pages/BlogDetail';
 import Filmography from 'features/filmography/pages/Filmography';
 import Showcase from 'features/showcase/pages/Showcase';
 import ShowcaseDetail from 'features/showcase/pages/ShowcaseDetail';
+import PrivacyPolicy from 'pages/PrivacyPolicy';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -52,6 +53,7 @@ function App() {
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/blogs/:slug" element={<BlogDetail />} />
             <Route path="/filmography" element={<Filmography />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Content>

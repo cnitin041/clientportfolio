@@ -5,7 +5,7 @@ import PageHero from 'components/layout/PageHero';
 import { films } from 'data/filmography';
 
 const Page = styled.main`
-  padding: 0 2rem 4rem;
+  padding: 0 clamp(12px, 1.5vw, 24px) 4rem;
   position: relative;
 `;
 

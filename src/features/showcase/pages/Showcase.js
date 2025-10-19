@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { loadAllShowcase } from 'features/showcase/lib/showcaseLoader';
 
 const Page = styled.main`
-  padding: 0 2rem 4rem; /* PageHero already handles header offset */
+  padding: 0 clamp(12px, 1.5vw, 24px) 4rem; /* PageHero already handles header offset */
 `;
 
 const Container = styled.div`

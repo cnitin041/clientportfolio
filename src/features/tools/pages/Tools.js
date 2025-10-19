@@ -6,7 +6,7 @@ import AttolsLogo from 'assets/logos/attols.svg';
 import HoudiniLogo from 'assets/logos/houdini.svg';
 
 const Page = styled.main`
-  padding: 0 2rem 4rem; /* PageHero already handles header offset */
+  padding: 0 clamp(12px, 1.5vw, 24px) 4rem; /* PageHero already handles header offset */
 `;
 
 const Container = styled.div`

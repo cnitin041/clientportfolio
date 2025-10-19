@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { standaloneTools } from 'features/tools/data/standalone';
 
 const Page = styled.main`
-  padding: 0 2rem 4rem; /* PageHero manages header offset */
+  padding: 0 clamp(12px, 1.5vw, 24px) 4rem; /* PageHero manages header offset */
 `;
 
 const Container = styled.div`

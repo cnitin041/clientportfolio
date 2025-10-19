@@ -5,7 +5,7 @@ import PageHero from 'components/layout/PageHero';
 import { getShowcaseBySlug } from 'features/showcase/lib/showcaseLoader';
 
 const Page = styled.main`
-  padding: 0 2rem 4rem; /* header offset handled in PageHero */
+  padding: 0 clamp(12px, 1.5vw, 24px) 4rem; /* header offset handled in PageHero */
 `;
 
 const Container = styled.div`

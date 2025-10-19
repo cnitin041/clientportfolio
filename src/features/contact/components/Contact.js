@@ -10,7 +10,8 @@ import {
 } from 'react-icons/fa';
 
 const ContactSection = styled.section`
-  padding: 6rem 2rem 4rem;
+  /* Reduce excessive horizontal padding on very large desktops */
+  padding: 6rem clamp(12px, 1.5vw, 24px) 4rem;
 `;
 
 const Container = styled.div`
