@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/clientportfolio/static/css/main.d86bf36e.css",
-    "main.js": "/clientportfolio/static/js/main.70f332a3.js",
+    "main.js": "/clientportfolio/static/js/main.e8ff1713.js",
     "static/media/rock-dogs2.jpg": "/clientportfolio/static/media/rock-dogs2.859e8b4b3e3d6782c8f3.jpg",
     "static/media/rrr.jpeg": "/clientportfolio/static/media/rrr.8e919e267d7c06db47e1.jpeg",
     "static/media/legend-of-hanuman.jpg": "/clientportfolio/static/media/legend-of-hanuman.1c2b4a9f05377b3137a1.jpg",
@@ -18,10 +18,10 @@
     "static/media/houdini.svg": "/clientportfolio/static/media/houdini.bb107f7667ed9e3fc01a77bf3dba9979.svg",
     "static/media/attols.svg": "/clientportfolio/static/media/attols.fad9988b71b8487b107ff18e8c4e0db4.svg",
     "main.d86bf36e.css.map": "/clientportfolio/static/css/main.d86bf36e.css.map",
-    "main.70f332a3.js.map": "/clientportfolio/static/js/main.70f332a3.js.map"
+    "main.e8ff1713.js.map": "/clientportfolio/static/js/main.e8ff1713.js.map"
   },
   "entrypoints": [
     "static/css/main.d86bf36e.css",
-    "static/js/main.70f332a3.js"
+    "static/js/main.e8ff1713.js"
   ]
 }
