@@ -124,6 +124,63 @@ const NavLink = styled(motion(Link))`
   }
 `;
 
+const Dropdown = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+`;
+
+const DropdownMenu = styled.div`
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.10);
+  border-radius: 10px;
+  padding: 8px;
+  min-width: 180px;
+  display: none;
+  z-index: 1002;
+
+  ${Dropdown}:hover & {
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    position: static;
+    box-shadow: none;
+    border: none;
+    padding: 0 0 8px 12px;
+    display: block; /* always visible inline on mobile */
+    min-width: auto;
+  }
+`;
+
+const DropdownItem = styled(Link)`
+  display: block;
+  text-decoration: none;
+  color: #333;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background: rgba(0,0,0,0.04);
+    color: #000;
+  }
+
+  &[aria-current="page"] {
+    background: #111;
+    color: #fff;
+  }
+`;
+
 const MenuButton = styled.button`
   display: none;
   background: none;
@@ -306,9 +363,19 @@ const Header = () => {
           <NavLink whileHover={{ scale: 1.05 }} to="/showcase" onClick={closeMenu}>
             Showcase
           </NavLink>
-          <NavLink whileHover={{ scale: 1.05 }} to="/tools" onClick={closeMenu}>
-            Tools
-          </NavLink>
+          <Dropdown>
+            <NavLink whileHover={{ scale: 1.05 }} to="/tools" onClick={closeMenu}>
+              Tools
+            </NavLink>
+            <DropdownMenu role="menu" aria-label="Tools submenu">
+              <DropdownItem to="/tools/standalone" onClick={closeMenu} aria-current={location.pathname.startsWith('/tools/standalone') ? 'page' : undefined}>
+                Standalone
+              </DropdownItem>
+              <DropdownItem to="/tools/houdini" onClick={closeMenu} aria-current={location.pathname.startsWith('/tools/houdini') ? 'page' : undefined}>
+                Houdini
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
           <NavLink whileHover={{ scale: 1.05 }} to="/filmography" onClick={closeMenu}>
             Filmography
           </NavLink>

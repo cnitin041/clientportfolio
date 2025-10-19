@@ -2,15 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { useForm, ValidationError } from '@formspree/react';
 import { 
   FaLinkedin, 
   FaGithub, 
-  FaTwitter,
-  FaInstagram,
   FaPaperPlane,
-  FaCheckCircle,
-  FaExclamationCircle
+  
 } from 'react-icons/fa';
 
 const ContactSection = styled.section`
@@ -69,7 +65,15 @@ const ContactInfo = styled(motion.div)`
   box-shadow: 0 10px 24px rgba(0,0,0,0.06);
 `;
 
-const ContactForm = styled(motion.form)`
+const ConnectPanel = styled(ContactInfo)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+`;
+
+const ContactForm = styled(motion.div)`
   background: #ffffff;
   border-radius: 12px;
   padding: 2rem;
@@ -200,12 +204,6 @@ const SubmitButton = styled(motion.button)`
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   }
 
-  &:disabled {
-    background: #2ecc71;
-    cursor: not-allowed;
-    transform: none !important;
-  }
-
   .spinner {
     width: 20px;
     height: 20px;
@@ -219,48 +217,15 @@ const SubmitButton = styled(motion.button)`
     to { transform: rotate(360deg); }
   }
 
-  .formspree-success {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #2ecc71;
-    color: #fff;
-    font-size: 1.2rem;
-    font-weight: 600;
-    border-radius: 50px;
-    padding: 1rem;
-    animation: fade-in 0.3s ease-in-out;
-  }
-
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
 `;
 
-const ErrorText = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #e74c3c;
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  background: rgba(231, 76, 60, 0.1);
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  border-left: 3px solid #e74c3c;
-`;
+// error text removed with Formspree
 
 const SocialLinks = styled(motion.div)`
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin-top: 3rem;
+  margin-top: 1.5rem;
 
   @media (max-width: 768px) {
     gap: 1.5rem;
@@ -268,8 +233,8 @@ const SocialLinks = styled(motion.div)`
 `;
 
 const SocialLink = styled(motion.a)`
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   background: #fff;
   border: 1px solid rgba(0,0,0,0.08);
   border-radius: 50%;
@@ -277,7 +242,7 @@ const SocialLink = styled(motion.a)`
   align-items: center;
   justify-content: center;
   color: #333;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   text-decoration: none;
   transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 
@@ -308,7 +273,6 @@ const Contact = () => {
     triggerOnce: true
   });
 
-  const [state, handleSubmit] = useForm('meorzqjw'); // Formspree form ID
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -323,12 +287,11 @@ const Contact = () => {
     });
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    await handleSubmit(e);
-    if (state.succeeded) {
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }
+  const buildMailTo = () => {
+    const to = 'mehul.joshi@email.com';
+    const subj = formData.subject || 'Contact via Portfolio';
+    const body = `Name: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0A%0D%0A${formData.message}`;
+    return `mailto:${to}?subject=${encodeURIComponent(subj)}&body=${body}`;
   };
 
   const containerVariants = {
@@ -378,197 +341,102 @@ const Contact = () => {
           animate={inView ? "visible" : "hidden"}
         >
           <ContactInfo variants={itemVariants}>
-            <InfoTitle>Let's Connect</InfoTitle>
-            
-            <InfoItem
-              whileHover={{ x: 10 }}
-              transition={{ duration: 0.3 }}
-            >
-              <ImageIcon
-                src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=120&q=60"
-                alt="Email"
-                loading="lazy"
-              />
-              <InfoContent>
-                <h4>Email</h4>
-                <p>mehul.joshi@email.com</p>
-              </InfoContent>
-            </InfoItem>
+            <InfoTitle>Send a Message</InfoTitle>
+            <ContactForm>
+              <FormGroup>
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder="Your Name"
+                  required
+                />
+              </FormGroup>
 
-            <InfoItem
-              whileHover={{ x: 10 }}
-              transition={{ duration: 0.3 }}
-            >
-              <ImageIcon
-                src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=120&q=60"
-                alt="Phone"
-                loading="lazy"
-              />
-              <InfoContent>
-                <h4>Phone</h4>
-                <p>+91 98765 43210</p>
-              </InfoContent>
-            </InfoItem>
+              <FormGroup>
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="your.email@example.com"
+                  required
+                />
+              </FormGroup>
 
-            <InfoItem
-              whileHover={{ x: 10 }}
-              transition={{ duration: 0.3 }}
-            >
-              <ImageIcon
-                src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=120&q=60"
-                alt="Location"
-                loading="lazy"
-              />
-              <InfoContent>
-                <h4>Location</h4>
-                <p>Mumbai, India</p>
-              </InfoContent>
-            </InfoItem>
+              <FormGroup>
+                <Label htmlFor="subject">Subject</Label>
+                <Input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  placeholder="Project Inquiry"
+                  required
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <Label htmlFor="message">Message</Label>
+                <TextArea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  placeholder="Tell me about your project..."
+                  required
+                />
+              </FormGroup>
+              <a
+                href={buildMailTo()}
+                style={{ textDecoration: 'none' }}
+                target="_self"
+                rel="noopener noreferrer"
+              >
+                <SubmitButton as={motion.div} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <FaPaperPlane />
+                  Send via Email
+                </SubmitButton>
+              </a>
+            </ContactForm>
           </ContactInfo>
 
-          <ContactForm 
-            variants={itemVariants} 
-            onSubmit={onSubmit}
-            action="https://formspree.io/f/meorzqjw"
-            method="POST"
-          >
-            <FormGroup>
-              <Label htmlFor="name">Name</Label>
-              <Input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                placeholder="Your Name"
-                required
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Label htmlFor="email">Email</Label>
-              <Input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder="your.email@example.com"
-                required
-              />
-              <ValidationError 
-                prefix="Email" 
-                field="email"
-                errors={state.errors}
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Label htmlFor="subject">Subject</Label>
-              <Input
-                type="text"
-                id="subject"
-                name="subject"
-                value={formData.subject}
-                onChange={handleInputChange}
-                placeholder="Project Inquiry"
-                required
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Label htmlFor="message">Message</Label>
-              <TextArea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                placeholder="Tell me about your project..."
-                required
-              />
-            </FormGroup>
-
-            <SubmitButton
-              type="submit"
-              disabled={state.submitting || state.succeeded}
-              whileHover={{ scale: state.submitting || state.succeeded ? 1 : 1.05 }}
-              whileTap={{ scale: state.submitting || state.succeeded ? 1 : 0.95 }}
-              style={{
-                opacity: state.submitting || state.succeeded ? 0.8 : 1,
-                cursor: state.submitting || state.succeeded ? 'not-allowed' : 'pointer'
-              }}
+          <ConnectPanel variants={itemVariants}>
+            <InfoTitle>Connect</InfoTitle>
+            <SocialLinks
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.6 }}
             >
-              {state.submitting ? (
-                <>
-                  <span className="spinner" />
-                  Sending...
-                </>
-              ) : state.succeeded ? (
-                <>
-                  <FaCheckCircle />
-                  Message Sent!
-                </>
-              ) : (
-                <>
-                  <FaPaperPlane />
-                  Send Message
-                </>
-              )}
-            </SubmitButton>
-            {state.errors && state.errors.length > 0 && (
-              <ErrorText>
-                <FaExclamationCircle />
-                Oops! There was an error sending your message. Please try again.
-              </ErrorText>
-            )}
-          </ContactForm>
+              <SocialLink
+                href="https://linkedin.com/in/mehul-joshi"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1, rotate: 360 }}
+                transition={{ duration: 0.3 }}
+                aria-label="LinkedIn"
+              >
+                <FaLinkedin />
+              </SocialLink>
+              <SocialLink
+                href="https://github.com/mehul-joshi"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1, rotate: 360 }}
+                transition={{ duration: 0.3 }}
+                aria-label="GitHub"
+              >
+                <FaGithub />
+              </SocialLink>
+            </SocialLinks>
+          </ConnectPanel>
         </ContactGrid>
-
-        <SocialLinks
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <SocialLink
-            href="https://linkedin.com/in/mehul-joshi"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1, rotate: 360 }}
-            transition={{ duration: 0.3 }}
-          >
-            <FaLinkedin />
-          </SocialLink>
-          
-          <SocialLink
-            href="https://github.com/mehul-joshi"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1, rotate: 360 }}
-            transition={{ duration: 0.3 }}
-          >
-            <FaGithub />
-          </SocialLink>
-          
-          <SocialLink
-            href="https://twitter.com/mehul_joshi"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1, rotate: 360 }}
-            transition={{ duration: 0.3 }}
-          >
-            <FaTwitter />
-          </SocialLink>
-          
-          <SocialLink
-            href="https://instagram.com/mehul_joshi"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1, rotate: 360 }}
-            transition={{ duration: 0.3 }}
-          >
-            <FaInstagram />
-          </SocialLink>
-        </SocialLinks>
 
         {/* Global Footer is rendered from App layout */}
       </Container>
