@@ -9,12 +9,12 @@ const Page = styled.main`
 `;
 
 const Container = styled.div`
-  max-width: 900px;
+  max-width: 1400px;
   margin: 0 auto;
 `;
 
 const Breadcrumb = styled.nav`
-  max-width: 900px;
+  max-width: 1400px;
   margin: 0 auto 0.5rem auto;
   color: #777;
   font-size: 0.95rem;

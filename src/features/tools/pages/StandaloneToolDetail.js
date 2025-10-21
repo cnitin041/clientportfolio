@@ -5,11 +5,11 @@ import PageHero from 'components/layout/PageHero';
 import { getStandaloneToolBySlug } from 'features/tools/data/standalone';
 
 const Page = styled.main`
-  padding: 0 clamp(12px, 1.5vw, 24px) 4rem; /* PageHero manages header offset */
+  padding: 0 2rem 4rem; /* PageHero manages header offset */
 `;
 
 const Container = styled.div`
-  max-width: 1000px;
+  max-width: 1400px;
   margin: 0 auto;
 `;
 

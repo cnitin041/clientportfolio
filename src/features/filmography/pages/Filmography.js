@@ -35,8 +35,10 @@ const Card = styled(motion.div)`
 
 const Poster = styled(motion.div)`
   height: 200px;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position: center;
+  background-color: #f4f4f5;
   transition: transform .35s ease, filter .35s ease;
   filter: saturate(1.1) contrast(1.07) sepia(0.04);
 `;
